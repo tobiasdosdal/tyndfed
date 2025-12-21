@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 24px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.art {
+  display: block;
+  margin: 0;
+  font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  font-size: clamp(5px, 1.35vw, 11px);
+  line-height: 1.2;
+  text-align: left;
+  white-space: pre;
+  color: #b8b8b8;
+  position: relative;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+  min-height: 9.6em;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  background: #b8b8b8;
+  animation: blink 1s steps(1) infinite;
+  vertical-align: text-bottom;
+  margin-left: 1px;
+  border-radius: 1px;
+  transition: opacity 0.5s ease;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.container:hover .art {
+  color: #d8d8d8;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 36px 16px;
+  }
+  
+  .art {
+    font-size: clamp(4px, 1.5vw, 9px);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 28px 12px;
+  }
+  
+  .art {
+    font-size: clamp(3px, 1.8vw, 8px);
+  }
+}
