@@ -43,10 +43,6 @@ function Home() {
           text-align: center;
           padding: 24px 20px 32px;
           border-top: 1px solid var(--chrome-border, rgba(255, 255, 255, 0.08));
-          background: linear-gradient(180deg, 
-            transparent 0%, 
-            rgba(20, 20, 20, 0.3) 100%
-          );
         }
         
         .description nav {
