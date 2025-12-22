@@ -28,6 +28,12 @@ const PROJECTS = [
     ],
   },
   {
+    name: 'HabitHero',
+    description: 'Motiverende todo-app med leaderboard til at konkurrere med vennerne.',
+    icon: '/images/HH.jpg',
+    links: [{ label: 'App Store', url: 'https://apps.apple.com/dk/app/habithero/id6479268020' }],
+  },
+  {
     name: 'Baobab-kommunikation.dk',
     description: 'Skræddersyet hjemmeside til kommunikationsbureau med fokus på hurtig indlæsning, tilgængelighed og en visuel identitet der afspejler deres brand.',
     icon: '/images/baobab-logo.jpg',
@@ -108,6 +114,8 @@ function Projects() {
           transition: 
             border-color 150ms ease,
             transform 150ms ease;
+          display: flex;
+          flex-direction: column;
         }
         
         .project:hover {
@@ -143,6 +151,7 @@ function Projects() {
           margin: 0 0 12px;
           font-size: 12px;
           line-height: 1.5;
+          flex: 1;
         }
         
         .project-links {
