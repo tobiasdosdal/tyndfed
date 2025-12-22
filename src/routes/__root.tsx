@@ -4,6 +4,7 @@ import {
   Scripts,
   createRootRoute,
 } from '@tanstack/react-router'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import appCss from '~/styles/app.css?url'
 
 export const Route = createRootRoute({
@@ -42,6 +43,7 @@ function RootComponent() {
       </head>
       <body>
         <Outlet />
+        <SpeedInsights />
         <Scripts />
       </body>
     </html>
