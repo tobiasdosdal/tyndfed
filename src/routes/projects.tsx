@@ -13,20 +13,14 @@ export const Route = createFileRoute('/projects')({
 
 const PROJECTS = [
   {
-    name: 'Border Genius',
-    description: 'Elegant app til at tilføje rammer til dine billeder',
-    icon: '/images/BG.jpg',
-    links: [{ label: 'App Store', url: 'https://apps.apple.com/us/app/border-genius/id6670782230' }],
-  },
-  {
     name: 'PL Showet',
-    description: 'Videoproduktion af fodboldpodcast til Youtube og Spotify',
+    description: 'Komplet videoproduktion for Premier League-podcast med ugentlige episoder, grafik og distribution på Youtube og Spotify.',
     icon: '/images/pllogo.png',
     links: [{ label: 'Youtube', url: 'https://www.youtube.com/@PLShowet' }],
   },
   {
     name: 'Bodegalisten',
-    description: 'Din guide til Danmarks bedste bodegaer - App og hjemmeside',
+    description: 'Fællesskabsdrevet platform med over 500 danske bodegaer. Brugerratings, anmeldelser og kortfunktion på tværs af iOS-app og responsive webapp.',
     icon: '/images/Icon-83.5@2x.png',
     links: [
       { label: 'App Store', url: 'https://apps.apple.com/dk/app/bodegalisten/id6476145936' },
@@ -34,14 +28,8 @@ const PROJECTS = [
     ],
   },
   {
-    name: 'HabitHero',
-    description: 'Motiverende todo-app med leaderboard til at konkurrere med vennerne',
-    icon: '/images/HH.jpg',
-    links: [{ label: 'App Store', url: 'https://apps.apple.com/dk/app/habithero/id6479268020' }],
-  },
-  {
     name: 'Baobab-kommunikation.dk',
-    description: 'Moderne og brugervenlig hjemmeside til kommunikationsbureau',
+    description: 'Skræddersyet hjemmeside til kommunikationsbureau med fokus på hurtig indlæsning, tilgængelighed og en visuel identitet der afspejler deres brand.',
     icon: '/images/baobab-logo.jpg',
     links: [{ label: 'Web', url: 'https://web.archive.org/web/20250403102638/https://www.baobab-kommunikation.dk/' }],
   },
