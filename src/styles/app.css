@@ -46,9 +46,13 @@
   box-sizing: border-box;
 }
 
-html, body {
+html {
   height: 100%;
   background: var(--bg-void);
+}
+
+body {
+  height: 100%;
   color: var(--text-primary);
   font-family: var(--font-mono);
   font-size: var(--font-size-base);
@@ -66,9 +70,40 @@ body {
   align-items: center;
   padding: var(--space-xl);
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: -10%;
   background: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(94, 175, 255, 0.03), transparent),
-    var(--bg-void);
+    radial-gradient(ellipse 80% 60% at 10% 10%, rgba(94, 175, 255, 0.12), transparent 50%),
+    radial-gradient(ellipse 70% 50% at 90% 90%, rgba(90, 247, 142, 0.08), transparent 50%),
+    radial-gradient(ellipse 60% 60% at 50% 50%, rgba(94, 175, 255, 0.05), transparent 60%);
+  animation: auroraShift 15s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes auroraShift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: translate(2%, -3%) scale(1.02);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-1%, 2%) scale(0.98);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(-2%, -1%) scale(1.01);
+    opacity: 0.85;
+  }
 }
 
 a {
@@ -214,15 +249,20 @@ a:hover {
 }
 
 @media (max-width: 480px) {
+  html, body {
+    overflow: hidden;
+  }
+  
   body {
     padding: var(--space-sm);
-    align-items: flex-start;
-    padding-top: var(--space-lg);
+    align-items: center;
   }
   
   .window {
     border-radius: 6px;
     max-width: 100%;
+    max-height: calc(100vh - var(--space-md));
+    overflow: auto;
   }
   
   .title-bar {
