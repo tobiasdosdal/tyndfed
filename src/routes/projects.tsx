@@ -1,5 +1,7 @@
+import React from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { WindowChrome } from '~/components/WindowChrome'
+import { formatRelativeTime } from '~/utils/github'
 
 export const Route = createFileRoute('/projects')({
   component: Projects,
@@ -26,12 +28,14 @@ const PROJECTS = [
       { label: 'App Store', url: 'https://apps.apple.com/dk/app/bodegalisten/id6476145936' },
       { label: 'Web', url: 'https://bodegalisten.dk' },
     ],
+    github: { owner: 'tobiasdosdal', repo: 'Bodegalisten' },
   },
   {
     name: 'HabitHero',
     description: 'Motiverende todo-app med leaderboard til at konkurrere med vennerne.',
     icon: '/images/HH.jpg',
     links: [{ label: 'App Store', url: 'https://apps.apple.com/dk/app/habithero/id6479268020' }],
+    github: { owner: 'tobiasdosdal', repo: 'HabitHero' },
   },
   {
     name: 'Baobab-kommunikation.dk',
@@ -42,34 +46,58 @@ const PROJECTS = [
 ]
 
 function Projects() {
+  const [githubDates, setGithubDates] = React.useState<Record<string, string>>({})
+
+  React.useEffect(() => {
+    fetch('/data/github-dates.json')
+      .then(res => res.json())
+      .catch(() => ({}))
+      .then(data => setGithubDates(data || {}))
+  }, [])
+
+  const getLastUpdated = (project: typeof PROJECTS[0]) => {
+    if (!project.github) return null
+    const key = `${project.github.owner}/${project.github.repo}`
+    const date = githubDates[key]
+    return date ? formatRelativeTime(date) : null
+  }
+
   return (
     <WindowChrome title="projects.exe">
       <nav className="back-nav">
         <Link to="/" className="back-link">← Back to main</Link>
       </nav>
       <section className="projects">
-        {PROJECTS.map((project) => (
-          <article key={project.name} className="project">
-            <header className="project-header">
-              <img src={project.icon} alt={project.name} className="project-icon" loading="lazy" />
-              <h3 className="project-title">{project.name}</h3>
-            </header>
-            <p className="project-description">{project.description}</p>
-            <div className="project-links">
-              {project.links.map((link) => (
-                <a
-                  key={link.url}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-link"
-                >
-                  → {link.label}
-                </a>
-              ))}
-            </div>
-          </article>
-        ))}
+        {PROJECTS.map((project) => {
+          const lastUpdated = getLastUpdated(project)
+          return (
+            <article key={project.name} className="project">
+              <header className="project-header">
+                <img src={project.icon} alt={project.name} className="project-icon" loading="lazy" />
+                <div className="project-header-content">
+                  <h3 className="project-title">{project.name}</h3>
+                  {lastUpdated && (
+                    <p className="project-updated">Updated {lastUpdated}</p>
+                  )}
+                </div>
+              </header>
+              <p className="project-description">{project.description}</p>
+              <div className="project-links">
+                {project.links.map((link) => (
+                  <a
+                    key={link.url}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-link"
+                  >
+                    → {link.label}
+                  </a>
+                ))}
+              </div>
+            </article>
+          )
+        })}
       </section>
       <style>{`
         .back-nav {
@@ -125,9 +153,13 @@ function Projects() {
         
         .project-header {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           gap: 12px;
           margin-bottom: 10px;
+        }
+
+        .project-header-content {
+          flex: 1;
         }
         
         .project-icon {
@@ -144,6 +176,13 @@ function Projects() {
           font-size: 14px;
           font-weight: 600;
           letter-spacing: -0.01em;
+        }
+
+        .project-updated {
+          color: var(--text-muted, #5c5c5c);
+          margin: 4px 0 0 0;
+          font-size: 11px;
+          font-weight: 400;
         }
         
         .project-description {

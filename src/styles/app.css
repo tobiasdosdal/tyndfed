@@ -118,6 +118,8 @@ a:hover {
   max-width: 960px;
   margin: 0 auto;
   border: 1px solid var(--chrome-border);
+  position: relative;
+  z-index: 10;
 
   animation: windowBoot 0.5s var(--ease-out-expo) both;
 }

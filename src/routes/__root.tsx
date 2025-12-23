@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-router'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 import appCss from '~/styles/app.css?url'
+import { BackgroundAnimation } from '~/components/BackgroundAnimation'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -43,6 +44,7 @@ function RootComponent() {
       </head>
       <body>
         <Outlet />
+        <BackgroundAnimation />
         <SpeedInsights />
         <Scripts />
       </body>
