@@ -6,16 +6,59 @@ export const Route = createFileRoute('/')({
   component: Home,
 })
 
+const featuredProjects = [
+  {
+    name: 'Bodegalisten',
+    icon: '/images/Icon-83.5@2x.png',
+    description: 'Community-driven platform with 500+ Danish bodegaer',
+    linkUrl: 'https://bodegalisten.dk',
+    linkLabel: 'Web',
+  },
+  {
+    name: 'PL Showet',
+    icon: '/images/pllogo.png',
+    description: 'Weekly Premier League podcast with video production',
+    linkUrl: 'https://www.youtube.com/@PLShowet',
+    linkLabel: 'Youtube',
+  },
+]
+
 function Home() {
   return (
     <WindowChrome>
       <AsciiLogo />
+      
+      <section className="featured-section" aria-labelledby="featured-heading">
+        <h2 id="featured-heading" className="featured-heading">Selected Work</h2>
+        <div className="featured-grid">
+          {featuredProjects.map((project) => (
+            <article key={project.name} className="featured-project">
+              <div className="featured-project-header">
+                <img 
+                  src={project.icon} 
+                  alt={`${project.name} icon`} 
+                  className="featured-project-icon"
+                />
+                <h3 className="featured-project-title">{project.name}</h3>
+              </div>
+              <p className="featured-project-description">{project.description}</p>
+              <a 
+                href={project.linkUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="featured-project-link"
+              >
+                {project.linkLabel} →
+              </a>
+            </article>
+          ))}
+        </div>
+        <Link to="/projects" className="view-all-link">
+          → View all projects
+        </Link>
+      </section>
+
       <footer className="description">
-        <nav>
-          <Link to="/projects" className="project-link">
-            → View Projects
-          </Link>
-        </nav>
         <div className="social-links">
           <a href="https://github.com/tobiasdosdal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -39,17 +82,101 @@ function Home() {
         </div>
       </footer>
       <style>{`
-        .description {
-          text-align: center;
-          padding: 24px 20px 32px;
+        .featured-section {
+          padding: 32px 24px;
           border-top: 1px solid var(--chrome-border, rgba(255, 255, 255, 0.08));
+          text-align: center;
         }
         
-        .description nav {
+        .featured-heading {
+          color: var(--text-muted, #5c5c5c);
+          font-size: 11px;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
           margin-bottom: 20px;
         }
         
-        .project-link {
+        .featured-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          gap: 16px;
+          margin-bottom: 24px;
+        }
+        
+        .featured-project {
+          padding: 16px;
+          border-radius: 8px;
+          background: var(--bg-elevated, #141414);
+          border: 1px solid var(--chrome-border, rgba(255, 255, 255, 0.08));
+          text-align: left;
+          transition: 
+            border-color 150ms ease,
+            transform 150ms ease;
+          display: flex;
+          flex-direction: column;
+        }
+        
+        .featured-project:hover {
+          border-color: var(--chrome-border-strong, rgba(255, 255, 255, 0.12));
+          transform: translateY(-2px);
+        }
+        
+        .featured-project-header {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 10px;
+        }
+        
+        .featured-project-icon {
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+          object-fit: cover;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .featured-project-title {
+          color: var(--accent-green, #5af78e);
+          margin: 0;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+        }
+        
+        .featured-project-description {
+          color: var(--text-secondary, #8c8c8c);
+          margin: 0 0 12px;
+          font-size: 12px;
+          line-height: 1.5;
+          flex: 1;
+        }
+        
+        .featured-project-link {
+          color: var(--accent-blue, #5eafff);
+          font-size: 11px;
+          font-weight: 500;
+          padding: 6px 10px;
+          min-height: 32px;
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          background: var(--accent-blue-dim, rgba(94, 175, 255, 0.08));
+          border-radius: 4px;
+          align-self: flex-start;
+          transition: 
+            background 150ms ease,
+            color 150ms ease;
+        }
+        
+        .featured-project-link:hover {
+          background: rgba(94, 175, 255, 0.15);
+          color: #7ec4ff;
+          text-decoration: none;
+        }
+        
+        .view-all-link {
           display: inline-flex;
           align-items: center;
           justify-content: center;
@@ -69,15 +196,21 @@ function Home() {
             transform 150ms ease;
         }
         
-        .project-link:hover {
+        .view-all-link:hover {
           background: rgba(94, 175, 255, 0.15);
           border-color: rgba(94, 175, 255, 0.25);
           transform: translateY(-1px);
           text-decoration: none;
         }
         
-        .project-link:active {
+        .view-all-link:active {
           transform: translateY(0);
+        }
+        
+        .description {
+          text-align: center;
+          padding: 24px 20px 32px;
+          border-top: 1px solid var(--chrome-border, rgba(255, 255, 255, 0.08));
         }
         
         .contact-info {
@@ -132,13 +265,21 @@ function Home() {
         }
         
         @media (max-width: 480px) {
-          .description {
-            padding: 20px 16px 24px;
+          .featured-section {
+            padding: 24px 16px;
           }
           
-          .project-link {
+          .featured-grid {
+            gap: 12px;
+          }
+          
+          .view-all-link {
             font-size: 12px;
             padding: 10px 20px;
+          }
+          
+          .description {
+            padding: 20px 16px 24px;
           }
           
           .contact-info {
