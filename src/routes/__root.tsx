@@ -30,6 +30,7 @@ export const Route = createRootRoute({
       { rel: 'apple-touch-icon', href: '/images/tyndfed.svg' },
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
       { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
+      { rel: 'preload', as: 'style', href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap' },
     ],
   }),
@@ -40,6 +41,10 @@ function RootComponent() {
   return (
     <html lang="en">
       <head>
+        <style dangerouslySetInnerHTML={{ __html: `
+          html, body { background: #0a0a0a; margin: 0; }
+          pre { visibility: hidden; }
+        `}} />
         <HeadContent />
       </head>
       <body>

@@ -25,32 +25,19 @@
   position: relative;
   letter-spacing: 0.01em;
   font-weight: 400;
-  min-height: 9.6em;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  visibility: visible;
+  animation: fadeIn 0.3s ease-out;
 }
 
-.cursor {
-  display: inline-block;
-  width: 0.55em;
-  height: 1em;
-  background: #b8b8b8;
-  animation: blink 1s steps(1) infinite;
-  vertical-align: text-bottom;
-  margin-left: 1px;
-  border-radius: 1px;
-  transition: opacity 0.5s ease;
-}
-
-.hidden {
-  opacity: 0;
-}
-
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .container:hover .art {
-  color: #d8d8d8;
+  color: #e8e8e8;
+  text-shadow: 0 0 20px rgba(94, 175, 255, 0.15);
 }
 
 @media (max-width: 768px) {
