@@ -49,6 +49,7 @@
 html {
   height: 100%;
   background: var(--bg-void);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -108,6 +109,13 @@ a {
 
 a:hover {
   text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .window {
@@ -269,4 +277,29 @@ a:hover {
   .controls {
     gap: 6px;
   }
+}
+
+.back-nav {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--chrome-border);
+}
+
+.back-link {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 8px 12px;
+  margin: -8px -12px;
+  border-radius: 6px;
+  transition: color var(--duration-fast) ease, background var(--duration-fast) ease;
+}
+
+.back-link:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+  text-decoration: none;
 }

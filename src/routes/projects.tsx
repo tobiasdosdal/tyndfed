@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { WindowChrome } from '~/components/WindowChrome'
 import { formatRelativeTime } from '~/utils/github'
@@ -9,6 +9,9 @@ export const Route = createFileRoute('/projects')({
     meta: [
       { title: 'Tyndfed - Projects' },
       { name: 'description', content: 'View Tyndfed\'s portfolio of innovative projects including Border Genius, Bodegalisten, HabitHero, and more.' },
+    ],
+    links: [
+      { rel: 'canonical', href: 'https://tyndfed.dk/projects' },
     ],
   }),
 })
@@ -46,10 +49,10 @@ const PROJECTS = [
 ]
 
 function Projects() {
-  const [githubDates, setGithubDates] = React.useState<Record<string, string>>({})
+  const [githubDates, setGithubDates] = useState<Record<string, string>>({})
 
-  React.useEffect(() => {
-    fetch('/data/github-dates.json')
+  useEffect(() => {
+    fetch('/github-dates.json')
       .then(res => res.json())
       .catch(() => ({}))
       .then(data => setGithubDates(data || {}))
@@ -100,33 +103,6 @@ function Projects() {
         })}
       </section>
       <style>{`
-        .back-nav {
-          padding: 16px 20px;
-          border-bottom: 1px solid var(--chrome-border, rgba(255, 255, 255, 0.08));
-        }
-        
-        .back-link {
-          color: var(--text-muted, #5c5c5c);
-          font-size: 12px;
-          font-weight: 500;
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
-          min-height: 44px;
-          padding: 8px 12px;
-          margin: -8px -12px;
-          border-radius: 6px;
-          transition: 
-            color 150ms ease,
-            background 150ms ease;
-        }
-        
-        .back-link:hover {
-          color: var(--text-primary, #e8e8e8);
-          background: var(--bg-hover, rgba(255, 255, 255, 0.05));
-          text-decoration: none;
-        }
-        
         .projects {
           padding: 24px;
           display: grid;

@@ -63,8 +63,21 @@ export const BackgroundAnimation = () => {
     }
 
     let frame = 0
+    let animationId: number
+    let isVisible = true
+
+    const handleVisibilityChange = () => {
+      isVisible = !document.hidden
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
     const animate = () => {
       if (!ctx || !canvas) return
+      
+      if (!isVisible) {
+        animationId = requestAnimationFrame(animate)
+        return
+      }
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.font = '9px JetBrains Mono, monospace'
@@ -109,17 +122,18 @@ export const BackgroundAnimation = () => {
         ctx.fillText(point.char, point.x + moveX, point.y + moveY)
       })
 
-      requestAnimationFrame(animate)
+      animationId = requestAnimationFrame(animate)
     }
 
     window.addEventListener('resize', handleResize)
     window.addEventListener('mousemove', handleMouseMove)
     handleResize()
-    const animationId = requestAnimationFrame(animate)
+    animationId = requestAnimationFrame(animate)
 
     return () => {
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
       cancelAnimationFrame(animationId)
     }
   }, [isMounted])

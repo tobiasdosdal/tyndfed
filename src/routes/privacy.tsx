@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { WindowChrome } from '~/components/WindowChrome'
 
@@ -8,6 +8,9 @@ export const Route = createFileRoute('/privacy')({
     meta: [
       { title: 'Tyndfed - Privacy Policy & Terms of Service' },
       { name: 'description', content: 'Privacy Policy and Terms of Service for Tyndfed apps and services.' },
+    ],
+    links: [
+      { rel: 'canonical', href: 'https://tyndfed.dk/privacy' },
     ],
   }),
 })
@@ -222,11 +225,22 @@ const CONTENT = {
 }
 
 function Privacy() {
-  const [lang, setLang] = useState<Language>('da')
+  const [lang, setLang] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('tyndfed-lang')
+      if (saved === 'en' || saved === 'da') return saved
+    }
+    return 'da'
+  })
+
+  useEffect(() => {
+    localStorage.setItem('tyndfed-lang', lang)
+  }, [lang])
+
   const content = CONTENT[lang]
 
   return (
-    <WindowChrome>
+    <WindowChrome title="privacy.exe">
       <div className="content-area">
         <nav className="lang-switch">
           <button

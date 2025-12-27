@@ -45,6 +45,20 @@ function RootComponent() {
           html, body { background: #0a0a0a; margin: 0; }
           pre { visibility: hidden; }
         `}} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Tyndfed",
+          "url": "https://tyndfed.dk",
+          "logo": "https://tyndfed.dk/images/tyndfed.svg",
+          "description": "Software development & creative services",
+          "address": { "@type": "PostalAddress", "addressCountry": "DK" },
+          "sameAs": [
+            "https://github.com/tobiasdosdal",
+            "https://linkedin.com/in/tobiasdosdal",
+            "https://instagram.com/tobiasdosdal"
+          ]
+        })}} />
         <HeadContent />
       </head>
       <body>

@@ -8,6 +8,9 @@ export const Route = createFileRoute('/')({
     meta: [
       { title: 'Tyndfed - Software Development & Creative Services' },
     ],
+    links: [
+      { rel: 'canonical', href: 'https://tyndfed.dk/' },
+    ],
   }),
 })
 
