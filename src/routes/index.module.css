@@ -1,0 +1,119 @@
+.tagline {
+  text-align: center;
+  color: var(--text-muted, #5c5c5c);
+  font-size: 12px;
+  margin: 0;
+  padding: 16px 20px 0;
+  letter-spacing: 0.02em;
+}
+
+.description {
+  text-align: center;
+  padding: 24px 20px 32px;
+}
+
+.description nav {
+  margin-bottom: 20px;
+}
+
+.projectLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--accent-blue, #5eafff);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 12px 24px;
+  border-radius: 6px;
+  min-height: 44px;
+  background: var(--accent-blue-dim, rgba(94, 175, 255, 0.08));
+  border: 1px solid rgba(94, 175, 255, 0.15);
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.projectLink:hover {
+  background: rgba(94, 175, 255, 0.15);
+  border-color: rgba(94, 175, 255, 0.25);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.projectLink:active {
+  transform: translateY(0);
+}
+
+.contactInfo {
+  color: var(--text-muted, #5c5c5c);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.contactInfo p {
+  margin: 0;
+}
+
+.contactInfo a {
+  color: var(--text-secondary, #8c8c8c);
+  transition: color 150ms ease;
+}
+
+.contactInfo a:hover,
+.privacyLink:hover {
+  color: var(--accent-blue, #5eafff);
+}
+
+.privacyLink {
+  color: var(--text-muted, #5c5c5c);
+  font-size: 11px;
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.socialLinks a {
+  color: var(--text-muted, #5c5c5c);
+  transition: color 150ms ease, transform 150ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.socialLinks a:hover {
+  color: var(--accent-blue, #5eafff);
+  transform: translateY(-2px);
+}
+
+.socialLinks svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 480px) {
+  .tagline {
+    font-size: 11px;
+    padding: 12px 16px 0;
+  }
+
+  .description {
+    padding: 20px 16px 24px;
+  }
+
+  .projectLink {
+    font-size: 12px;
+    padding: 10px 20px;
+  }
+
+  .contactInfo {
+    font-size: 11px;
+  }
+}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { WindowChrome } from '~/components/WindowChrome'
 import { formatRelativeTime } from '~/utils/github'
+import styles from './projects.module.css'
 
 export const Route = createFileRoute('/projects')({
   component: Projects,
@@ -70,29 +71,29 @@ function Projects() {
       <nav className="back-nav">
         <Link to="/" className="back-link">← Back to main</Link>
       </nav>
-      <section className="projects">
+      <section className={styles.projects}>
         {PROJECTS.map((project) => {
           const lastUpdated = getLastUpdated(project)
           return (
-            <article key={project.name} className="project">
-              <header className="project-header">
-                <img src={project.icon} alt={project.name} className="project-icon" loading="lazy" />
-                <div className="project-header-content">
-                  <h3 className="project-title">{project.name}</h3>
+            <article key={project.name} className={styles.project}>
+              <header className={styles.projectHeader}>
+                <img src={project.icon} alt={project.name} className={styles.projectIcon} loading="lazy" />
+                <div className={styles.projectHeaderContent}>
+                  <h3 className={styles.projectTitle}>{project.name}</h3>
                   {lastUpdated && (
-                    <p className="project-updated">Updated {lastUpdated}</p>
+                    <p className={styles.projectUpdated}>Updated {lastUpdated}</p>
                   )}
                 </div>
               </header>
-              <p className="project-description">{project.description}</p>
-              <div className="project-links">
+              <p className={styles.projectDescription}>{project.description}</p>
+              <div className={styles.projectLinks}>
                 {project.links.map((link) => (
                   <a
                     key={link.url}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="project-link"
+                    className={styles.projectLink}
                   >
                     → {link.label}
                   </a>
@@ -102,128 +103,6 @@ function Projects() {
           )
         })}
       </section>
-      <style>{`
-        .projects {
-          padding: 24px;
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 16px;
-        }
-        
-        .project {
-          padding: 16px;
-          border-radius: 8px;
-          background: var(--bg-elevated, #141414);
-          border: 1px solid var(--chrome-border, rgba(255, 255, 255, 0.08));
-          transition: 
-            border-color 150ms ease,
-            transform 150ms ease;
-          display: flex;
-          flex-direction: column;
-        }
-        
-        .project:hover {
-          border-color: var(--chrome-border-strong, rgba(255, 255, 255, 0.12));
-          transform: translateY(-2px);
-        }
-        
-        .project-header {
-          display: flex;
-          align-items: flex-start;
-          gap: 12px;
-          margin-bottom: 10px;
-        }
-
-        .project-header-content {
-          flex: 1;
-        }
-        
-        .project-icon {
-          width: 32px;
-          height: 32px;
-          border-radius: 8px;
-          object-fit: cover;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
-        
-        .project-title {
-          color: var(--accent-green, #5af78e);
-          margin: 0;
-          font-size: 14px;
-          font-weight: 600;
-          letter-spacing: -0.01em;
-        }
-
-        .project-updated {
-          color: var(--text-muted, #5c5c5c);
-          margin: 4px 0 0 0;
-          font-size: 11px;
-          font-weight: 400;
-        }
-        
-        .project-description {
-          color: var(--text-secondary, #8c8c8c);
-          margin: 0 0 12px;
-          font-size: 12px;
-          line-height: 1.5;
-          flex: 1;
-        }
-        
-        .project-links {
-          display: flex;
-          gap: 8px;
-          flex-wrap: wrap;
-        }
-        
-        .project-link {
-          color: var(--accent-blue, #5eafff);
-          font-size: 11px;
-          font-weight: 500;
-          padding: 6px 10px;
-          min-height: 32px;
-          display: flex;
-          align-items: center;
-          gap: 4px;
-          background: var(--accent-blue-dim, rgba(94, 175, 255, 0.08));
-          border-radius: 4px;
-          transition: 
-            background 150ms ease,
-            color 150ms ease;
-        }
-        
-        .project-link:hover {
-          background: rgba(94, 175, 255, 0.15);
-          color: #7ec4ff;
-          text-decoration: none;
-        }
-        
-        @media (max-width: 768px) {
-          .projects {
-            padding: 16px;
-            gap: 12px;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .projects {
-            padding: 12px;
-            grid-template-columns: 1fr;
-          }
-          
-          .back-nav {
-            padding: 12px 16px;
-          }
-          
-          .project {
-            padding: 14px;
-          }
-          
-          .project-icon {
-            width: 28px;
-            height: 28px;
-          }
-        }
-      `}</style>
     </WindowChrome>
   )
 }

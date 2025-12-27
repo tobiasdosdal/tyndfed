@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { WindowChrome } from '~/components/WindowChrome'
 import { AsciiLogo } from '~/components/AsciiLogo'
+import styles from './index.module.css'
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -18,14 +19,14 @@ function Home() {
   return (
     <WindowChrome title="tyndfed.exe">
       <AsciiLogo />
-      <p className="tagline">Software development & creative services</p>
-      <footer className="description">
+      <p className={styles.tagline}>Software development & creative services</p>
+      <footer className={styles.description}>
         <nav>
-          <Link to="/projects" className="project-link">
+          <Link to="/projects" className={styles.projectLink}>
             → View Projects
           </Link>
         </nav>
-        <div className="social-links">
+        <div className={styles.socialLinks}>
           <a href="https://github.com/tobiasdosdal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
           </a>
@@ -35,140 +36,18 @@ function Home() {
           <a href="https://instagram.com/tobiasdosdal" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
           </a>
-          
         </div>
-        <div className="contact-info">
+        <div className={styles.contactInfo}>
           <p>© 2025 Tyndfed. All rights reserved.</p>
           <p>CVR: 39125307</p>
           <p>
             <a href="mailto:kontakt@tyndfed.dk">kontakt@tyndfed.dk</a>
           </p>
           <p>
-            <Link to="/privacy" className="privacy-link">Privacy & Terms</Link>
+            <Link to="/privacy" className={styles.privacyLink}>Privacy & Terms</Link>
           </p>
         </div>
       </footer>
-      <style>{`
-        .tagline {
-          text-align: center;
-          color: var(--text-muted, #5c5c5c);
-          font-size: 12px;
-          margin: 0;
-          padding: 16px 20px 0;
-          letter-spacing: 0.02em;
-        }
-        
-        .description {
-          text-align: center;
-          padding: 24px 20px 32px;
-        }
-        
-        .description nav {
-          margin-bottom: 20px;
-        }
-        
-        .project-link {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 6px;
-          color: var(--accent-blue, #5eafff);
-          font-size: 13px;
-          font-weight: 500;
-          letter-spacing: 0.01em;
-          padding: 12px 24px;
-          border-radius: 6px;
-          min-height: 44px;
-          background: var(--accent-blue-dim, rgba(94, 175, 255, 0.08));
-          border: 1px solid rgba(94, 175, 255, 0.15);
-          transition: 
-            background 150ms ease,
-            border-color 150ms ease,
-            transform 150ms ease;
-        }
-        
-        .project-link:hover {
-          background: rgba(94, 175, 255, 0.15);
-          border-color: rgba(94, 175, 255, 0.25);
-          transform: translateY(-1px);
-          text-decoration: none;
-        }
-        
-        .project-link:active {
-          transform: translateY(0);
-        }
-        
-        .contact-info {
-          color: var(--text-muted, #5c5c5c);
-          font-size: 12px;
-          line-height: 1.8;
-        }
-        
-        .contact-info p {
-          margin: 0;
-        }
-        
-        .contact-info a {
-          color: var(--text-secondary, #8c8c8c);
-          transition: color 150ms ease;
-        }
-        
-        .contact-info a:hover,
-        .privacy-link:hover {
-          color: var(--accent-blue, #5eafff);
-        }
-        
-        .privacy-link {
-          color: var(--text-muted, #5c5c5c);
-          font-size: 11px;
-        }
-        
-        .social-links {
-          display: flex;
-          justify-content: center;
-          gap: 16px;
-          margin-bottom: 16px;
-        }
-        
-        .social-links a {
-          color: var(--text-muted, #5c5c5c);
-          transition: color 150ms ease, transform 150ms ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 8px;
-        }
-        
-        .social-links a:hover {
-          color: var(--accent-blue, #5eafff);
-          transform: translateY(-2px);
-        }
-        
-        .social-links svg {
-          width: 20px;
-          height: 20px;
-        }
-        
-        @media (max-width: 480px) {
-          .tagline {
-            font-size: 11px;
-            padding: 12px 16px 0;
-          }
-          
-          .description {
-            padding: 20px 16px 24px;
-          }
-          
-          .project-link {
-            font-size: 12px;
-            padding: 10px 20px;
-          }
-          
-          .contact-info {
-            font-size: 11px;
-          }
-        }
-      `}</style>
     </WindowChrome>
   )
 }

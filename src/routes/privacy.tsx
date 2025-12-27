@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { WindowChrome } from '~/components/WindowChrome'
+import styles from './privacy.module.css'
 
 export const Route = createFileRoute('/privacy')({
   component: Privacy,
@@ -241,25 +242,25 @@ function Privacy() {
 
   return (
     <WindowChrome title="privacy.exe">
-      <div className="content-area">
-        <nav className="lang-switch">
+      <div className={styles.contentArea}>
+        <nav className={styles.langSwitch}>
           <button
-            className={lang === 'da' ? 'active' : ''}
+            className={lang === 'da' ? styles.langSwitchActive : undefined}
             onClick={() => setLang('da')}
           >
             Dansk
           </button>
           <button
-            className={lang === 'en' ? 'active' : ''}
+            className={lang === 'en' ? styles.langSwitchActive : undefined}
             onClick={() => setLang('en')}
           >
             English
           </button>
         </nav>
 
-        <section className="legal-section">
+        <section className={styles.legalSection}>
           <h2>{content.privacy.title}</h2>
-          <p className="updated">{content.privacy.updated}</p>
+          <p className={styles.updated}>{content.privacy.updated}</p>
           {content.privacy.sections.map((s) => (
             <div key={s.heading}>
               <h3>{s.heading}</h3>
@@ -268,11 +269,11 @@ function Privacy() {
           ))}
         </section>
 
-        <hr />
+        <hr className={styles.divider} />
 
-        <section className="legal-section">
+        <section className={styles.legalSection}>
           <h2>{content.terms.title}</h2>
-          <p className="updated">{content.terms.updated}</p>
+          <p className={styles.updated}>{content.terms.updated}</p>
           {content.terms.sections.map((s) => (
             <div key={s.heading}>
               <h3>{s.heading}</h3>
@@ -281,156 +282,10 @@ function Privacy() {
           ))}
         </section>
 
-        <nav className="back-nav">
-          <Link to="/" className="back-link">← Back to main</Link>
+        <nav className={styles.backNav}>
+          <Link to="/" className={styles.backLink}>← Back to main</Link>
         </nav>
       </div>
-
-      <style>{`
-        .content-area {
-          padding: 24px;
-          max-height: calc(100vh - 120px);
-          overflow-y: auto;
-          scrollbar-width: thin;
-          scrollbar-color: var(--text-ghost, #3a3a3a) transparent;
-        }
-        
-        .content-area::-webkit-scrollbar {
-          width: 6px;
-        }
-        
-        .content-area::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        
-        .content-area::-webkit-scrollbar-thumb {
-          background: var(--text-ghost, #3a3a3a);
-          border-radius: 3px;
-        }
-        
-        .lang-switch {
-          display: flex;
-          justify-content: center;
-          gap: 8px;
-          margin-bottom: 24px;
-        }
-        
-        .lang-switch button {
-          font-family: inherit;
-          font-size: 12px;
-          font-weight: 500;
-          background: var(--bg-elevated, #141414);
-          color: var(--text-secondary, #8c8c8c);
-          border: 1px solid var(--chrome-border, rgba(255, 255, 255, 0.08));
-          padding: 8px 16px;
-          border-radius: 6px;
-          cursor: pointer;
-          transition: 
-            background 150ms ease,
-            color 150ms ease,
-            border-color 150ms ease;
-        }
-        
-        .lang-switch button:hover {
-          background: var(--bg-hover, #1a1a1a);
-          color: var(--text-primary, #e8e8e8);
-        }
-        
-        .lang-switch button.active {
-          background: var(--accent-blue-dim, rgba(94, 175, 255, 0.12));
-          color: var(--accent-blue, #5eafff);
-          border-color: rgba(94, 175, 255, 0.2);
-        }
-        
-        .legal-section {
-          color: var(--text-secondary, #8c8c8c);
-          line-height: 1.7;
-          font-size: 13px;
-        }
-        
-        .legal-section h2 {
-          color: var(--text-primary, #e8e8e8);
-          font-size: 16px;
-          font-weight: 600;
-          letter-spacing: -0.01em;
-          border-bottom: 1px solid var(--chrome-border, rgba(255, 255, 255, 0.08));
-          padding-bottom: 10px;
-          margin-bottom: 16px;
-        }
-        
-        .legal-section h3 {
-          color: var(--text-primary, #e8e8e8);
-          font-size: 13px;
-          font-weight: 500;
-          margin-top: 20px;
-          margin-bottom: 8px;
-        }
-        
-        .legal-section p {
-          margin-bottom: 12px;
-        }
-        
-        .legal-section .updated {
-          color: var(--text-muted, #5c5c5c);
-          font-size: 11px;
-          margin-bottom: 16px;
-        }
-        
-        .legal-section a {
-          color: var(--accent-blue, #5eafff);
-          transition: color 150ms ease;
-        }
-        
-        .legal-section a:hover {
-          color: #7ec4ff;
-        }
-        
-        hr {
-          border: none;
-          border-top: 1px solid var(--chrome-border, rgba(255, 255, 255, 0.08));
-          margin: 32px 0;
-        }
-        
-        .back-nav {
-          margin-top: 24px;
-          padding-top: 20px;
-          border-top: 1px solid var(--chrome-border, rgba(255, 255, 255, 0.08));
-          text-align: center;
-        }
-        
-        .back-link {
-          color: var(--text-muted, #5c5c5c);
-          font-size: 12px;
-          font-weight: 500;
-          padding: 8px 16px;
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
-          border-radius: 6px;
-          transition: 
-            color 150ms ease,
-            background 150ms ease;
-        }
-        
-        .back-link:hover {
-          color: var(--text-primary, #e8e8e8);
-          background: var(--bg-hover, rgba(255, 255, 255, 0.05));
-        }
-        
-        @media (max-width: 480px) {
-          .content-area {
-            padding: 16px;
-          }
-          
-          .legal-section {
-            font-size: 12px;
-          }
-          
-          .legal-section h2 {
-            font-size: 14px;
-          }
-        }
-      `}</style>
     </WindowChrome>
   )
 }
