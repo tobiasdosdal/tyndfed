@@ -29,7 +29,12 @@ bun run start        # Run production server (self-hosted)
 - SEO/meta tags handled via TanStack Router's `head()` function in route files
 - `WindowChrome` component provides macOS-style window wrapper used throughout
 - `BackgroundAnimation` is a canvas-based animation with mouse interaction and visibility API integration
-- CSS custom properties for theming defined in `src/styles/app.css` (dark theme only)
+
+**Styling:**
+- CSS modules for components and routes (e.g., `Component.module.css`)
+- `src/styles/app.css` for global styles only (variables, reset, body)
+- Use camelCase for class names in modules (e.g., `.projectLink` not `.project-link`)
+- Dark theme only - CSS variables defined in `:root`
 
 **Build-time GitHub Integration:**
 - `scripts/fetch-github-dates.mjs` runs before build to fetch last commit dates
