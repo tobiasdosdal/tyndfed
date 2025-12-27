@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import styles from './WindowChrome.module.css'
 
 interface WindowChromeProps {
   children: ReactNode
@@ -7,14 +8,14 @@ interface WindowChromeProps {
 
 export function WindowChrome({ children, title }: WindowChromeProps) {
   return (
-    <main className="window">
-      <header className="title-bar">
-        <div className="controls">
-          <span className="control-btn close" />
-          <span className="control-btn minimize" />
-          <span className="control-btn maximize" />
+    <main className={styles.window}>
+      <header className={styles.titleBar}>
+        <div className={styles.controls}>
+          <span className={`${styles.controlBtn} ${styles.close}`} />
+          <span className={`${styles.controlBtn} ${styles.minimize}`} />
+          <span className={`${styles.controlBtn} ${styles.maximize}`} />
         </div>
-        {title && <span className="window-title">{title}</span>}
+        {title && <span className={styles.windowTitle}>{title}</span>}
       </header>
       {children}
     </main>

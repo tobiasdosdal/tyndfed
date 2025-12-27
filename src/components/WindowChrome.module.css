@@ -1,0 +1,146 @@
+.window {
+  background: var(--bg-surface);
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  border: 1px solid var(--chrome-border);
+  position: relative;
+  z-index: 10;
+  animation: windowBoot 0.5s var(--ease-out-expo) both;
+}
+
+@keyframes windowBoot {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.titleBar {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--chrome-border);
+  position: relative;
+}
+
+.titleBar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.04) 20%,
+    rgba(255, 255, 255, 0.04) 80%,
+    transparent
+  );
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.controlBtn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: default;
+  position: relative;
+  transition:
+    filter var(--duration-fast) ease,
+    transform var(--duration-fast) ease;
+  box-shadow:
+    inset 0 0 0 0.5px rgba(0, 0, 0, 0.15),
+    0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+  background: var(--traffic-close);
+  background-image: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 50%
+  );
+}
+
+.minimize {
+  background: var(--traffic-minimize);
+  background-image: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 50%
+  );
+}
+
+.maximize {
+  background: var(--traffic-maximize);
+  background-image: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 50%
+  );
+}
+
+.window:hover .controlBtn {
+  filter: brightness(1.05);
+}
+
+.window:hover .controlBtn:hover {
+  filter: brightness(1.15);
+  transform: scale(1.08);
+}
+
+.windowTitle {
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-left: var(--space-sm);
+  opacity: 0.8;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.window:hover .windowTitle {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .window {
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .window {
+    border-radius: 6px;
+    max-width: 100%;
+    max-height: calc(100vh - var(--space-md));
+    overflow: auto;
+  }
+
+  .titleBar {
+    padding: 10px 12px;
+  }
+
+  .controlBtn {
+    width: 10px;
+    height: 10px;
+  }
+
+  .controls {
+    gap: 6px;
+  }
+}
