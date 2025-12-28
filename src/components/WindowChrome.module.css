@@ -1,6 +1,6 @@
 .window {
   background: var(--bg-surface);
-  border-radius: 10px;
+  border-radius: 16px;
   overflow: hidden;
   width: 100%;
   max-width: 960px;
@@ -8,26 +8,32 @@
   border: 1px solid var(--chrome-border);
   position: relative;
   z-index: 10;
-  animation: windowBoot 0.5s var(--ease-out-expo) both;
+  animation: windowBoot 0.6s var(--ease-out-expo) both;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 20px 50px -10px rgba(0, 0, 0, 0.5),
+    0 0 100px -20px var(--accent-dim);
 }
 
 @keyframes windowBoot {
   0% {
     opacity: 0;
-    transform: scale(0.96) translateY(8px);
+    transform: scale(0.95) translateY(20px);
+    filter: blur(4px);
   }
   100% {
     opacity: 1;
     transform: scale(1) translateY(0);
+    filter: blur(0);
   }
 }
 
 .titleBar {
-  padding: 12px 14px;
+  padding: 14px 16px;
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  background: var(--bg-elevated);
+  gap: var(--space-md);
+  background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg-surface) 100%);
   border-bottom: 1px solid var(--chrome-border);
   position: relative;
 }
@@ -40,10 +46,10 @@
   right: 0;
   height: 1px;
   background: linear-gradient(90deg,
-    transparent,
-    rgba(255, 255, 255, 0.04) 20%,
-    rgba(255, 255, 255, 0.04) 80%,
-    transparent
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 30%,
+    rgba(255, 255, 255, 0.06) 70%,
+    transparent 100%
   );
 }
 
@@ -54,93 +60,175 @@
 }
 
 .controlBtn {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   border: none;
   padding: 0;
   margin: 0;
   cursor: default;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition:
-    filter var(--duration-fast) ease,
-    transform var(--duration-fast) ease;
-  box-shadow:
-    inset 0 0 0 0.5px rgba(0, 0, 0, 0.15),
-    0 1px 1px rgba(0, 0, 0, 0.1);
+    transform var(--duration-fast) var(--ease-spring),
+    box-shadow var(--duration-fast) ease;
+}
+
+.controlIcon {
+  width: 8px;
+  height: 8px;
+  stroke: currentColor;
+  fill: none;
+  opacity: 0;
+  transition: opacity var(--duration-fast) ease;
 }
 
 .close {
   background: var(--traffic-close);
-  background-image: linear-gradient(180deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    transparent 50%
-  );
+  color: rgba(0, 0, 0, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .minimize {
   background: var(--traffic-minimize);
-  background-image: linear-gradient(180deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    transparent 50%
-  );
+  color: rgba(0, 0, 0, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .maximize {
   background: var(--traffic-maximize);
-  background-image: linear-gradient(180deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    transparent 50%
-  );
+  color: rgba(0, 0, 0, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.window:hover .controlBtn {
-  filter: brightness(1.05);
+/* Show icons on window hover */
+.window:hover .controlIcon {
+  opacity: 1;
 }
 
-.window:hover .controlBtn:hover {
-  filter: brightness(1.15);
-  transform: scale(1.08);
+.controlBtn:hover {
+  transform: scale(1.15);
+}
+
+.controlBtn:hover .controlIcon {
+  opacity: 1;
+}
+
+.close:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 12px rgba(255, 95, 87, 0.5);
+}
+
+.minimize:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 12px rgba(254, 188, 46, 0.5);
+}
+
+.maximize:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 12px rgba(40, 200, 64, 0.5);
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .windowTitle {
   color: var(--text-muted);
+  font-family: var(--font-mono);
   font-size: var(--font-size-xs);
   font-weight: 500;
-  letter-spacing: 0.02em;
-  margin-left: var(--space-sm);
-  opacity: 0.8;
-  transition: opacity var(--duration-fast) ease;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity var(--duration-fast) ease, color var(--duration-fast) ease;
 }
 
 .window:hover .windowTitle {
   opacity: 1;
+  color: var(--text-secondary);
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
 }
 
 @media (max-width: 768px) {
   .window {
-    border-radius: 8px;
+    border-radius: 12px;
+  }
+
+  .titleWrapper {
+    position: static;
+    transform: none;
+    margin-left: auto;
   }
 }
 
 @media (max-width: 480px) {
   .window {
-    border-radius: 6px;
+    border-radius: 10px;
     max-width: 100%;
     max-height: calc(100vh - var(--space-md));
     overflow: auto;
   }
 
   .titleBar {
-    padding: 10px 12px;
+    padding: 12px 14px;
   }
 
   .controlBtn {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
+  }
+
+  .controlIcon {
+    width: 6px;
+    height: 6px;
   }
 
   .controls {
     gap: 6px;
+  }
+
+  .statusDot {
+    display: none;
   }
 }

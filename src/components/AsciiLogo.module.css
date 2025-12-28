@@ -2,10 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 48px 24px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  padding: 56px 24px 48px;
+  overflow: visible;
   position: relative;
+  cursor: default;
 }
 
 .wrapper {
@@ -18,44 +18,148 @@
   margin: 0;
   font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
   font-size: clamp(5px, 1.35vw, 11px);
-  line-height: 1.2;
+  line-height: 1.15;
   text-align: left;
   white-space: pre;
-  color: #b8b8b8;
+  color: var(--text-secondary);
   position: relative;
-  letter-spacing: 0.01em;
-  font-weight: 400;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-  visibility: visible;
-  animation: fadeIn 0.3s ease-out;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+  transition:
+    color var(--duration-normal) ease,
+    text-shadow var(--duration-normal) ease,
+    transform var(--duration-normal) var(--ease-out-expo);
+  z-index: 1;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.art.hovered {
+  color: var(--text-warm);
+  text-shadow:
+    0 0 30px var(--accent-glow),
+    0 0 60px rgba(0, 240, 255, 0.2);
+  transform: scale(1.02);
 }
 
-.container:hover .art {
-  color: #e8e8e8;
-  text-shadow: 0 0 20px rgba(94, 175, 255, 0.15);
+/* Glow layer behind text */
+.glow {
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(
+    ellipse 60% 40% at center,
+    var(--accent-dim) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--duration-slow) ease;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(20px);
+}
+
+.container:hover .glow {
+  opacity: 1;
+}
+
+/* Scanline effect on hover */
+.scanline {
+  position: absolute;
+  top: 0;
+  left: -10%;
+  right: -10%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent) 20%,
+    var(--accent) 80%,
+    transparent
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.container:hover .scanline {
+  opacity: 0.6;
+  animation: scanMove 1.5s ease-in-out;
+}
+
+@keyframes scanMove {
+  0% {
+    top: -10%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    top: 110%;
+    opacity: 0;
+  }
+}
+
+/* Chromatic aberration on glitch */
+.art.hovered::before,
+.art.hovered::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
 }
 
 @media (max-width: 768px) {
   .container {
-    padding: 36px 16px;
+    padding: 40px 16px 32px;
   }
-  
+
   .art {
     font-size: clamp(4px, 1.5vw, 9px);
+  }
+
+  .glow {
+    inset: -20px;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    padding: 28px 12px;
+    padding: 32px 12px 24px;
   }
-  
+
   .art {
     font-size: clamp(3px, 1.8vw, 8px);
+  }
+
+  .art.hovered {
+    transform: none;
+  }
+
+  .scanline {
+    display: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .art {
+    transition: color var(--duration-fast) ease;
+  }
+
+  .art.hovered {
+    transform: none;
+  }
+
+  .scanline {
+    display: none;
+  }
+
+  .container:hover .glow {
+    transition: none;
   }
 }

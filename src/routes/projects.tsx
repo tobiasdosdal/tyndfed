@@ -22,12 +22,14 @@ const PROJECTS = [
     name: 'PL Showet',
     description: 'Komplet videoproduktion for Premier League-podcast med ugentlige episoder, grafik og distribution på Youtube og Spotify.',
     icon: '/images/pllogo.png',
+    tech: ['Premiere Pro', 'After Effects', 'Photoshop'],
     links: [{ label: 'Youtube', url: 'https://www.youtube.com/@PLShowet' }],
   },
   {
     name: 'Bodegalisten',
     description: 'Fællesskabsdrevet platform med over 500 danske bodegaer. Brugerratings, anmeldelser og kortfunktion på tværs af iOS-app og responsive webapp.',
     icon: '/images/Icon-83.5@2x.png',
+    tech: ['Swift', 'SwiftUI', 'React', 'Next.js', 'Supabase', 'MapKit'],
     links: [
       { label: 'App Store', url: 'https://apps.apple.com/dk/app/bodegalisten/id6476145936' },
       { label: 'Web', url: 'https://bodegalisten.dk' },
@@ -38,6 +40,7 @@ const PROJECTS = [
     name: 'HabitHero',
     description: 'Motiverende todo-app med leaderboard til at konkurrere med vennerne.',
     icon: '/images/HH.jpg',
+    tech: ['Swift', 'SwiftUI', 'CloudKit', 'WidgetKit'],
     links: [{ label: 'App Store', url: 'https://apps.apple.com/dk/app/habithero/id6479268020' }],
     github: { owner: 'tobiasdosdal', repo: 'HabitHero' },
   },
@@ -45,6 +48,7 @@ const PROJECTS = [
     name: 'Baobab-kommunikation.dk',
     description: 'Skræddersyet hjemmeside til kommunikationsbureau med fokus på hurtig indlæsning, tilgængelighed og en visuel identitet der afspejler deres brand.',
     icon: '/images/baobab-logo.jpg',
+    tech: ['React', 'Gatsby', 'Styled Components', 'Contentful'],
     links: [{ label: 'Web', url: 'https://web.archive.org/web/20250403102638/https://www.baobab-kommunikation.dk/' }],
   },
 ]
@@ -86,6 +90,13 @@ function Projects() {
                 </div>
               </header>
               <p className={styles.projectDescription}>{project.description}</p>
+              {project.tech && (
+                <div className={styles.techStack}>
+                  {project.tech.map((tech) => (
+                    <span key={tech} className={styles.techTag}>{tech}</span>
+                  ))}
+                </div>
+              )}
               <div className={styles.projectLinks}>
                 {project.links.map((link) => (
                   <a
