@@ -23,7 +23,7 @@ export function WindowChrome({ children, title }: WindowChromeProps) {
           </span>
           <span className={`${styles.controlBtn} ${styles.maximize}`} aria-label="Maximize">
             <svg viewBox="0 0 10 10" className={styles.controlIcon}>
-              <path d="M1 1L5 5L9 1M1 9L5 5L9 9" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M1 1h8v8H1z" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </span>
         </div>

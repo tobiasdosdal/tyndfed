@@ -77,9 +77,10 @@
 }
 
 .controlIcon {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   stroke: currentColor;
+  stroke-width: 1.5;
   fill: none;
   opacity: 0;
   transition: opacity var(--duration-fast) ease;

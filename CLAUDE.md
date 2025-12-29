@@ -42,3 +42,30 @@ bun run start        # Run production server (self-hosted)
 - Uses optional `GITHUB_TOKEN` from `.env.local` for higher rate limits
 
 **Path Aliases:** `~/` maps to `src/`
+
+## Design Review Workflow
+
+Use `/design-review` command for comprehensive UI/UX review of front-end changes.
+
+**When to trigger design review:**
+- After completing significant UI changes
+- Before creating PRs with visual components
+- When accessibility or responsiveness testing is needed
+
+**Design resources:**
+- `.claude/design-principles.md` - Design tokens, patterns, and checklist
+- `src/styles/app.css` - CSS variables and global styles
+
+**Review process uses Playwright MCP to:**
+1. Navigate to affected pages on localhost:3000
+2. Test at multiple viewports (1440px, 768px, 375px)
+3. Verify hover states and interactions
+4. Check for console errors
+5. Capture screenshots as evidence
+
+**Post-implementation checklist:**
+- [ ] Changes match design tokens (colors, spacing, typography)
+- [ ] Responsive at all breakpoints
+- [ ] Hover/focus states implemented
+- [ ] No console errors
+- [ ] Accessibility basics (contrast, focus visible, touch targets)
