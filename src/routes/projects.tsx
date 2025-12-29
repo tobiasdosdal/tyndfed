@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { WindowChrome } from '~/components/WindowChrome'
-import { formatRelativeTime } from '~/utils/github'
 import styles from './projects.module.css'
 
 export const Route = createFileRoute('/projects')({
@@ -32,14 +30,12 @@ const PROJECTS = [
       { label: 'App Store', url: 'https://apps.apple.com/dk/app/bodegalisten/id6476145936' },
       { label: 'Web', url: 'https://bodegalisten.dk' },
     ],
-    github: { owner: 'tobiasdosdal', repo: 'Bodegalisten' },
   },
   {
     name: 'HabitHero',
     description: 'Motiverende todo-app med leaderboard til at konkurrere med vennerne.',
     icon: '/images/HH.jpg',
     links: [{ label: 'App Store', url: 'https://apps.apple.com/dk/app/habithero/id6479268020' }],
-    github: { owner: 'tobiasdosdal', repo: 'HabitHero' },
   },
   {
     name: 'Baobab-kommunikation.dk',
@@ -50,58 +46,34 @@ const PROJECTS = [
 ]
 
 function Projects() {
-  const [githubDates, setGithubDates] = useState<Record<string, string>>({})
-
-  useEffect(() => {
-    fetch('/github-dates.json')
-      .then(res => res.json())
-      .catch(() => ({}))
-      .then(data => setGithubDates(data || {}))
-  }, [])
-
-  const getLastUpdated = (project: typeof PROJECTS[0]) => {
-    if (!project.github) return null
-    const key = `${project.github.owner}/${project.github.repo}`
-    const date = githubDates[key]
-    return date ? formatRelativeTime(date) : null
-  }
-
   return (
     <WindowChrome title="projects.exe">
       <nav className="back-nav">
         <Link to="/" className="back-link">← Back to main</Link>
       </nav>
       <section className={styles.projects}>
-        {PROJECTS.map((project) => {
-          const lastUpdated = getLastUpdated(project)
-          return (
-            <article key={project.name} className={styles.project}>
-              <header className={styles.projectHeader}>
-                <img src={project.icon} alt={project.name} className={styles.projectIcon} loading="lazy" />
-                <div className={styles.projectHeaderContent}>
-                  <h3 className={styles.projectTitle}>{project.name}</h3>
-                  {lastUpdated && (
-                    <p className={styles.projectUpdated}>Updated {lastUpdated}</p>
-                  )}
-                </div>
-              </header>
-              <p className={styles.projectDescription}>{project.description}</p>
-              <div className={styles.projectLinks}>
-                {project.links.map((link) => (
-                  <a
-                    key={link.url}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.projectLink}
-                  >
-                    → {link.label}
-                  </a>
-                ))}
-              </div>
-            </article>
-          )
-        })}
+        {PROJECTS.map((project) => (
+          <article key={project.name} className={styles.project}>
+            <header className={styles.projectHeader}>
+              <img src={project.icon} alt={project.name} className={styles.projectIcon} loading="lazy" />
+              <h3 className={styles.projectTitle}>{project.name}</h3>
+            </header>
+            <p className={styles.projectDescription}>{project.description}</p>
+            <div className={styles.projectLinks}>
+              {project.links.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.projectLink}
+                >
+                  → {link.label}
+                </a>
+              ))}
+            </div>
+          </article>
+        ))}
       </section>
     </WindowChrome>
   )
