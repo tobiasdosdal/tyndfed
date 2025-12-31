@@ -32,7 +32,7 @@
   z-index: 1;
 }
 
-.art.hovered {
+.art.glitching {
   color: var(--text-warm);
   text-shadow:
     0 0 30px var(--accent-glow),
@@ -49,18 +49,19 @@
     var(--accent-dim) 0%,
     transparent 70%
   );
-  opacity: 0;
-  transition: opacity var(--duration-slow) ease;
+  opacity: 0.5;
   z-index: 0;
   pointer-events: none;
   filter: blur(20px);
+  animation: glowPulse 4s ease-in-out infinite;
 }
 
-.container:hover .glow {
-  opacity: 1;
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
 }
 
-/* Scanline effect on hover */
+/* Scanline effect - continuous */
 .scanline {
   position: absolute;
   top: 0;
@@ -77,11 +78,7 @@
   opacity: 0;
   pointer-events: none;
   z-index: 2;
-}
-
-.container:hover .scanline {
-  opacity: 0.6;
-  animation: scanMove 1.5s ease-in-out;
+  animation: scanMove 4s ease-in-out infinite;
 }
 
 @keyframes scanMove {
@@ -102,8 +99,8 @@
 }
 
 /* Chromatic aberration on glitch */
-.art.hovered::before,
-.art.hovered::after {
+.art.glitching::before,
+.art.glitching::after {
   content: attr(data-text);
   position: absolute;
   top: 0;
@@ -136,7 +133,7 @@
     font-size: clamp(3px, 1.8vw, 8px);
   }
 
-  .art.hovered {
+  .art.glitching {
     transform: none;
   }
 
@@ -151,8 +148,18 @@
     transition: color var(--duration-fast) ease;
   }
 
-  .art.hovered {
+  .art.glitching {
     transform: none;
+  }
+  
+  .glow {
+    animation: none;
+    opacity: 0.4;
+  }
+  
+  .scanline {
+    animation: none;
+    display: none;
   }
 
   .scanline {

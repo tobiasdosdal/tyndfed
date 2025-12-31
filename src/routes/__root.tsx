@@ -6,7 +6,6 @@ import {
 } from '@tanstack/react-router'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 import appCss from '~/styles/app.css?url'
-import { BackgroundAnimation } from '~/components/BackgroundAnimation'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -54,7 +53,7 @@ function RootComponent() {
           "address": { "@type": "PostalAddress", "addressCountry": "DK" },
           "sameAs": [
             "https://github.com/tobiasdosdal",
-            "https://linkedin.com/in/tobiasdosdal",
+            "https://www.linkedin.com/in/tobias-dosdal-feddersen/",
             "https://instagram.com/tobiasdosdal"
           ]
         })}} />
@@ -62,7 +61,6 @@ function RootComponent() {
       </head>
       <body>
         <Outlet />
-        <BackgroundAnimation />
         <SpeedInsights />
         <Scripts />
       </body>

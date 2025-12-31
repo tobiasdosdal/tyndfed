@@ -14,28 +14,29 @@ const GLITCH_CHARS = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`░▒▓█▀▄'
 
 export function AsciiLogo() {
   const [displayText, setDisplayText] = useState(LOGO)
-  const [isHovered, setIsHovered] = useState(false)
-  const glitchIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const [isGlitching, setIsGlitching] = useState(false)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Glitch effect on hover
+  // Continuous glitch loop
   useEffect(() => {
-    if (isHovered) {
+    const runGlitchCycle = () => {
+      setIsGlitching(true)
       let glitchCount = 0
       const maxGlitches = 6
 
-      glitchIntervalRef.current = setInterval(() => {
+      const glitchInterval = setInterval(() => {
         if (glitchCount >= maxGlitches) {
           setDisplayText(LOGO)
-          if (glitchIntervalRef.current) {
-            clearInterval(glitchIntervalRef.current)
-          }
+          setIsGlitching(false)
+          clearInterval(glitchInterval)
+          // Schedule next glitch cycle (3-6 seconds pause)
+          timeoutRef.current = setTimeout(runGlitchCycle, 3000 + Math.random() * 3000)
           return
         }
 
         // Create glitched version
         const glitched = LOGO.split('').map((char) => {
           if (char === ' ' || char === '\n') return char
-          // Random chance to glitch each character
           if (Math.random() < 0.1) {
             return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]
           }
@@ -45,28 +46,22 @@ export function AsciiLogo() {
         setDisplayText(glitched)
         glitchCount++
       }, 50)
-    } else {
-      if (glitchIntervalRef.current) {
-        clearInterval(glitchIntervalRef.current)
-      }
-      setDisplayText(LOGO)
     }
+
+    // Start first cycle after a short delay
+    timeoutRef.current = setTimeout(runGlitchCycle, 1000)
 
     return () => {
-      if (glitchIntervalRef.current) {
-        clearInterval(glitchIntervalRef.current)
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
       }
     }
-  }, [isHovered])
+  }, [])
 
   return (
-    <section
-      className={styles.container}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <section className={styles.container}>
       <div className={styles.wrapper}>
-        <pre className={`${styles.art} ${isHovered ? styles.hovered : ''}`}>
+        <pre className={`${styles.art} ${isGlitching ? styles.glitching : ''}`}>
           {displayText}
         </pre>
         <div className={styles.glow} aria-hidden="true" />

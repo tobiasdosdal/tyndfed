@@ -241,7 +241,7 @@ function Privacy() {
   const content = CONTENT[lang]
 
   return (
-    <WindowChrome title="privacy.exe">
+    <WindowChrome>
       <div className={styles.contentArea}>
         <nav className={styles.langSwitch}>
           <button

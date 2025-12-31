@@ -3,10 +3,9 @@ import styles from './WindowChrome.module.css'
 
 interface WindowChromeProps {
   children: ReactNode
-  title?: string
 }
 
-export function WindowChrome({ children, title }: WindowChromeProps) {
+export function WindowChrome({ children }: WindowChromeProps) {
   return (
     <main className={styles.window}>
       <header className={styles.titleBar}>
@@ -27,12 +26,6 @@ export function WindowChrome({ children, title }: WindowChromeProps) {
             </svg>
           </span>
         </div>
-        {title && (
-          <div className={styles.titleWrapper}>
-            <span className={styles.windowTitle}>{title}</span>
-            <span className={styles.statusDot} />
-          </div>
-        )}
       </header>
       {children}
     </main>

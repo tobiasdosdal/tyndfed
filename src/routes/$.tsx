@@ -14,7 +14,7 @@ export const Route = createFileRoute('/$')({
 
 function NotFound() {
   return (
-    <WindowChrome title="error.exe">
+    <WindowChrome>
       <section className={styles.errorContent}>
         <div className={styles.errorCode} data-text="404">
           <span>4</span>

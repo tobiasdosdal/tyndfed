@@ -47,7 +47,7 @@ const PROJECTS = [
 
 function Projects() {
   return (
-    <WindowChrome title="projects.exe">
+    <WindowChrome>
       <nav className="back-nav">
         <Link to="/" className="back-link">← Back to main</Link>
       </nav>
