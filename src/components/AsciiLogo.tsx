@@ -65,7 +65,6 @@ export function AsciiLogo() {
           {displayText}
         </pre>
         <div className={styles.glow} aria-hidden="true" />
-        <div className={styles.scanline} aria-hidden="true" />
       </div>
     </section>
   )
