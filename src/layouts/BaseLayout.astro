@@ -1,0 +1,98 @@
+---
+import { SpeedInsights } from '@vercel/speed-insights/react';
+import '~/styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'Tyndfed - Creative development studio specializing in mobile apps, websites, and digital design.',
+  canonical,
+  noindex = false
+} = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Tyndfed",
+  "url": "https://tyndfed.dk",
+  "logo": "https://tyndfed.dk/images/tyndfed.svg",
+  "description": "Software development & creative services",
+  "address": { "@type": "PostalAddress", "addressCountry": "DK" },
+  "sameAs": [
+    "https://github.com/tobiasdosdal",
+    "https://www.linkedin.com/in/tobias-dosdal-feddersen/",
+    "https://instagram.com/tobiasdosdal"
+  ]
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Tobias Dosdal-Feddersen" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tyndfed.dk/" />
+    <meta property="og:title" content="Tyndfed - Creative Development Studio" />
+    <meta property="og:description" content="Danish development studio creating innovative mobile apps and websites." />
+    <meta property="og:image" content="https://tyndfed.dk/images/tyndfed.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <title>{title}</title>
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href="/images/tyndfed.svg" />
+    <link rel="apple-touch-icon" href="/images/tyndfed.svg" />
+
+    <!-- Preconnect to font origins -->
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Load fonts in head (not via CSS @import) -->
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" />
+
+    <!-- Critical CSS to prevent layout shift -->
+    <style is:inline>
+      html, body {
+        background: #0c0c0f;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 32px;
+        color: #f0f0f2;
+        font-family: 'JetBrains Mono', 'SF Mono', monospace;
+      }
+      @media (max-width: 768px) {
+        body { padding: 16px; }
+      }
+      @media (max-width: 480px) {
+        body { padding: 8px; }
+      }
+    </style>
+
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body>
+    <slot />
+    <SpeedInsights client:only="react" />
+  </body>
+</html>

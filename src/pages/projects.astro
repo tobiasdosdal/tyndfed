@@ -1,0 +1,46 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import WindowChrome from '~/components/WindowChrome.astro';
+import BackLink from '~/components/BackLink.astro';
+import ProjectCard from '~/components/ProjectCard.astro';
+import { projects } from '~/data/projects';
+---
+
+<BaseLayout
+  title="Tyndfed - Projects"
+  description="View Tyndfed's portfolio of innovative projects including Border Genius, Bodegalisten, HabitHero, and more."
+  canonical="https://tyndfed.dk/projects"
+>
+  <WindowChrome>
+    <BackLink />
+    <section class="projects">
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </section>
+  </WindowChrome>
+</BaseLayout>
+
+<style>
+  .projects {
+    padding: 24px 32px 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .projects {
+      padding: 20px 24px 32px;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .projects {
+      padding: 16px;
+      gap: 10px;
+    }
+  }
+</style>

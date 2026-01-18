@@ -1,0 +1,96 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import WindowChrome from '~/components/WindowChrome.astro';
+import SocialLinks from '~/components/SocialLinks.astro';
+import ContactInfo from '~/components/ContactInfo.astro';
+import PrimaryButton from '~/components/PrimaryButton.astro';
+import { AsciiLogo } from '~/components/AsciiLogo';
+---
+
+<BaseLayout
+  title="Tyndfed - Software Development & Creative Services"
+  canonical="https://tyndfed.dk/"
+>
+  <WindowChrome>
+    <AsciiLogo client:load />
+    <p class="tagline">Software development & creative services</p>
+    <footer class="footer">
+      <nav>
+        <PrimaryButton href="/projects">view-projects</PrimaryButton>
+      </nav>
+      <SocialLinks />
+      <ContactInfo />
+    </footer>
+  </WindowChrome>
+</BaseLayout>
+
+<style>
+  .tagline {
+    text-align: center;
+    color: var(--text-secondary);
+    font-family: var(--font-display);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .tagline::before,
+  .tagline::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--chrome-border-strong));
+    flex-shrink: 0;
+  }
+
+  .tagline::after {
+    background: linear-gradient(90deg, var(--chrome-border-strong), transparent);
+  }
+
+  .footer {
+    text-align: center;
+    padding: 40px 24px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .footer nav {
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .tagline::before,
+    .tagline::after {
+      width: 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tagline {
+      font-size: var(--font-size-xs);
+      padding: 0 16px;
+      letter-spacing: 0.08em;
+      gap: 12px;
+    }
+
+    .tagline::before,
+    .tagline::after {
+      width: 16px;
+    }
+
+    .footer {
+      padding: 28px 16px 32px;
+      gap: 24px;
+    }
+  }
+</style>

@@ -1,0 +1,108 @@
+---
+import type { LegalDocument } from '~/data/legal';
+
+interface Props {
+  document: LegalDocument;
+}
+
+const { document } = Astro.props;
+---
+
+<section class="legal-section">
+  <h2>{document.title}</h2>
+  <p class="updated">{document.updated}</p>
+  {document.sections.map((section) => (
+    <div>
+      <h3>{section.heading}</h3>
+      <p>{section.text}</p>
+    </div>
+  ))}
+</section>
+
+<style>
+  .legal-section {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: var(--font-size-sm);
+    animation: fadeIn 0.4s var(--ease-out-expo);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .legal-section h2 {
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    border-bottom: 1px solid var(--chrome-border);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .legal-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 1px;
+  }
+
+  .legal-section h3 {
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    margin-top: 24px;
+    margin-bottom: 10px;
+  }
+
+  .legal-section p {
+    margin-bottom: 14px;
+  }
+
+  .updated {
+    color: var(--text-muted);
+    font-size: var(--font-size-xs);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .updated::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.6;
+  }
+
+  @media (max-width: 480px) {
+    .legal-section {
+      font-size: var(--font-size-xs);
+    }
+
+    .legal-section h2 {
+      font-size: var(--font-size-lg);
+    }
+
+    .legal-section h3 {
+      font-size: var(--font-size-sm);
+    }
+  }
+</style>

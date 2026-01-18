@@ -1,0 +1,57 @@
+export interface ProjectLink {
+  label: string;
+  url: string;
+}
+
+export interface Project {
+  name: string;
+  description: string;
+  icon: string;
+  links: ProjectLink[];
+}
+
+export const projects: Project[] = [
+  {
+    name: 'PL Showet',
+    description: 'Komplet videoproduktion for Premier League-podcast med ugentlige episoder, grafik og distribution på Youtube og Spotify.',
+    icon: '/images/pllogo.png',
+    links: [{ label: 'Youtube', url: 'https://www.youtube.com/@PLShowet' }],
+  },
+  {
+    name: 'Bodegalisten',
+    description: 'Fællesskabsdrevet platform med over 500 danske bodegaer. Brugerratings, anmeldelser og kortfunktion på tværs af iOS-app og responsive webapp.',
+    icon: '/images/Icon-83.5@2x.png',
+    links: [
+      { label: 'App Store', url: 'https://apps.apple.com/dk/app/bodegalisten/id6476145936' },
+      { label: 'Web', url: 'https://bodegalisten.dk' },
+    ],
+  },
+  {
+    name: 'HabitHero',
+    description: 'Motiverende todo-app med leaderboard til at konkurrere med vennerne.',
+    icon: '/images/HH.jpg',
+    links: [{ label: 'App Store', url: 'https://apps.apple.com/dk/app/habithero/id6479268020' }],
+  },
+  {
+    name: 'Baobab-kommunikation.dk',
+    description: 'Skræddersyet hjemmeside til kommunikationsbureau med fokus på hurtig indlæsning, tilgængelighed og en visuel identitet der afspejler deres brand.',
+    icon: '/images/baobab-logo.jpg',
+    links: [{ label: 'Web', url: 'https://web.archive.org/web/20250403102638/https://www.baobab-kommunikation.dk/' }],
+  },
+  {
+    name: 'EXS Nordic',
+    description: 'Logo til dansk kaffevirksomhed med kunder i hele Norden.',
+    icon: '/images/exs-icon.png',
+    links: [
+      { label: 'Web', url: 'https://exsnordic.com' },
+      { label: 'Logo (hvid)', url: '/images/exsnordic-logo.png' },
+      { label: 'Logo (sort)', url: '/images/exsnordic-logo-black.png' },
+    ],
+  },
+  {
+    name: 'WOW-FIT',
+    description: 'Hjemmeside og logo til personlig træner og kostvejleder i Kastrup.',
+    icon: '/images/wowfit-icon.png',
+    links: [{ label: 'Web', url: 'https://wow-fit.dk' }],
+  },
+];

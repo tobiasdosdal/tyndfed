@@ -1,0 +1,111 @@
+---
+interface Props {
+  href: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+---
+
+<a href={href} class:list={['terminal-btn', className]}>
+  <span class="prompt">$</span>
+  <span class="command"><slot /></span>
+  <span class="cursor"></span>
+</a>
+
+<style>
+  .terminal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    padding: 12px 20px;
+    background: var(--bg-surface);
+    border: 1px solid var(--chrome-border);
+    border-radius: 4px;
+    position: relative;
+    transition:
+      border-color var(--duration-fast) ease,
+      background var(--duration-fast) ease;
+  }
+
+  .terminal-btn::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 6px;
+    background: linear-gradient(
+      135deg,
+      #ff6b6b,
+      #feca57,
+      #48dbfb,
+      #ff9ff3,
+      #54a0ff,
+      #5f27cd,
+      #ff6b6b
+    );
+    background-size: 200% 200%;
+    opacity: 0;
+    z-index: -1;
+    filter: blur(8px);
+    transition: opacity var(--duration-normal) ease;
+  }
+
+  @keyframes rainbow-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .prompt {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .command {
+    color: var(--text-secondary);
+    transition: color var(--duration-fast) ease;
+  }
+
+  .cursor {
+    width: 8px;
+    height: 16px;
+    background: var(--accent);
+    opacity: 0;
+    animation: blink 1s step-end infinite;
+    transition: opacity var(--duration-fast) ease;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .terminal-btn:hover {
+    border-color: var(--chrome-border-strong);
+    background: var(--bg-elevated);
+    text-decoration: none;
+  }
+
+  .terminal-btn:hover::before {
+    opacity: 0.5;
+    animation: rainbow-shift 3s ease infinite;
+  }
+
+  .terminal-btn:hover .command {
+    color: var(--text-primary);
+  }
+
+  .terminal-btn:hover .cursor {
+    opacity: 1;
+  }
+
+  @media (max-width: 480px) {
+    .terminal-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

@@ -1,0 +1,188 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import WindowChrome from '~/components/WindowChrome.astro';
+import LegalSection from '~/components/LegalSection.astro';
+import { legalContent } from '~/data/legal';
+---
+
+<BaseLayout
+  title="Tyndfed - Privacy Policy & Terms of Service"
+  description="Privacy Policy and Terms of Service for Tyndfed apps and services."
+  canonical="https://tyndfed.dk/privacy"
+>
+  <WindowChrome>
+    <div class="content-area">
+      <nav class="lang-switch">
+        <button class="lang-btn active" data-lang="da">Dansk</button>
+        <button class="lang-btn" data-lang="en">English</button>
+      </nav>
+
+      <div class="lang-content" data-lang="da">
+        <LegalSection document={legalContent.da.privacy} />
+        <hr class="divider" />
+        <LegalSection document={legalContent.da.terms} />
+      </div>
+
+      <div class="lang-content" data-lang="en" style="display: none;">
+        <LegalSection document={legalContent.en.privacy} />
+        <hr class="divider" />
+        <LegalSection document={legalContent.en.terms} />
+      </div>
+
+      <nav class="back-nav-bottom">
+        <a href="/" class="back-link">← Back to main</a>
+      </nav>
+    </div>
+  </WindowChrome>
+</BaseLayout>
+
+<script>
+  function initLanguageToggle() {
+    const buttons = document.querySelectorAll('.lang-btn');
+    const contents = document.querySelectorAll('.lang-content');
+
+    const savedLang = localStorage.getItem('tyndfed-lang') || 'da';
+    setLanguage(savedLang);
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.getAttribute('data-lang');
+        if (lang) {
+          setLanguage(lang);
+          localStorage.setItem('tyndfed-lang', lang);
+        }
+      });
+    });
+
+    function setLanguage(lang: string) {
+      buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+      contents.forEach(content => {
+        const contentLang = content.getAttribute('data-lang');
+        (content as HTMLElement).style.display = contentLang === lang ? 'block' : 'none';
+      });
+    }
+  }
+
+  initLanguageToggle();
+</script>
+
+<style>
+  .content-area {
+    padding: 28px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--text-ghost) transparent;
+  }
+
+  .content-area::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .content-area::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .content-area::-webkit-scrollbar-thumb {
+    background: var(--text-ghost);
+    border-radius: 3px;
+  }
+
+  .content-area::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+
+  .lang-switch {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .lang-btn {
+    font-family: var(--font-display);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
+    border: 1px solid var(--chrome-border);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+      background var(--duration-fast) ease,
+      color var(--duration-fast) ease,
+      border-color var(--duration-fast) ease,
+      transform var(--duration-fast) var(--ease-spring);
+  }
+
+  .lang-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+  }
+
+  .lang-btn.active {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-color: var(--chrome-border-accent);
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--chrome-border);
+    margin: 36px 0;
+    position: relative;
+  }
+
+  .divider::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--chrome-border-strong), transparent);
+  }
+
+  .back-nav-bottom {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--chrome-border);
+    text-align: center;
+  }
+
+  .back-nav-bottom .back-link {
+    color: var(--text-muted);
+    font-family: var(--font-display);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    padding: 10px 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 8px;
+    transition:
+      color var(--duration-fast) ease,
+      background var(--duration-fast) ease;
+  }
+
+  .back-nav-bottom .back-link:hover {
+    color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  @media (max-width: 480px) {
+    .content-area {
+      padding: 20px;
+    }
+
+    .lang-btn {
+      padding: 8px 16px;
+      font-size: var(--font-size-xs);
+    }
+  }
+</style>

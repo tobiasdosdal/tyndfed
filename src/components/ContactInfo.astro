@@ -1,0 +1,79 @@
+---
+---
+
+<div class="contact-info">
+  <p>© 2025 Tyndfed. All rights reserved.</p>
+  <p>CVR: 39125307</p>
+  <p>
+    <a href="mailto:kontakt@tyndfed.dk">kontakt@tyndfed.dk</a>
+  </p>
+  <p>
+    <a href="/privacy" class="privacy-link">Privacy & Terms</a>
+  </p>
+</div>
+
+<style>
+  .contact-info {
+    color: var(--text-ghost);
+    font-size: var(--font-size-xs);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px 20px;
+    margin: 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--chrome-border);
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .contact-info p {
+    margin: 0;
+  }
+
+  .contact-info a {
+    color: var(--text-muted);
+    transition: color var(--duration-fast) ease;
+    position: relative;
+  }
+
+  .contact-info a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width var(--duration-normal) var(--ease-out-expo);
+  }
+
+  .contact-info a:hover {
+    color: var(--accent);
+  }
+
+  .contact-info a:hover::after {
+    width: 100%;
+  }
+
+  .privacy-link {
+    color: var(--text-ghost);
+    transition: color var(--duration-fast) ease;
+  }
+
+  .privacy-link:hover {
+    color: var(--text-muted);
+  }
+
+  .privacy-link::after {
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    .contact-info {
+      padding-top: 20px;
+      gap: 6px 16px;
+    }
+  }
+</style>

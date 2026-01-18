@@ -4,36 +4,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Tyndfed is a portfolio website built with TanStack Start, React 19, and TypeScript. It uses server-side rendering via Nitro and deploys to Vercel.
+Tyndfed is a portfolio website built with Astro, React 19 (for interactive islands), and TypeScript. It uses static site generation and deploys to Vercel.
 
 ## Commands
 
 ```bash
 bun install          # Install dependencies
-bun dev              # Start dev server (port 3000)
-bun run build        # Build for production (fetches GitHub dates, then Vite build)
-bun run start        # Run production server (self-hosted)
+bun dev              # Start dev server (port 4321)
+bun run build        # Build for production (fetches GitHub dates, then Astro build)
+bun run preview      # Preview production build locally
 ```
 
 ## Architecture
 
-**Stack:** React 19 + TanStack Start + Vite 7 + TypeScript + Nitro (Vercel preset)
+**Stack:** Astro 5 + React 19 (islands) + TypeScript + Vercel adapter
 
-**Routing:** File-based routing in `src/routes/`. Route tree is auto-generated in `src/routeTree.gen.ts`. The `$.tsx` file is the 404 catch-all route.
+**Routing:** File-based routing in `src/pages/`. The `404.astro` file is the error page.
 
-**Entry Points:**
-- `src/entry-client.tsx` - Client hydration
-- `src/entry-server.tsx` - SSR handler
+**Key Files:**
+- `src/layouts/BaseLayout.astro` - Root HTML layout with meta tags, fonts, JSON-LD
+- `src/components/WindowChrome.astro` - macOS-style window wrapper (pure Astro, 0 JS)
+- `src/components/AsciiLogo.tsx` - React island with glitch animation (`client:load`)
 
 **Key Patterns:**
-- SEO/meta tags handled via TanStack Router's `head()` function in route files
-- `WindowChrome` component provides macOS-style window wrapper used throughout
-- `BackgroundAnimation` is a canvas-based animation with mouse interaction and visibility API integration
+- Astro components for static content (WindowChrome, pages)
+- React islands only for interactive components (AsciiLogo with `client:load`)
+- SEO/meta tags handled via props in BaseLayout.astro
+- Vanilla JS for simple interactivity (language toggle on privacy page)
 
 **Styling:**
-- CSS modules for components and routes (e.g., `Component.module.css`)
-- `src/styles/app.css` for global styles only (variables, reset, body)
-- Use camelCase for class names in modules (e.g., `.projectLink` not `.project-link`)
+- Astro scoped styles in `.astro` files
+- CSS modules only for React components (e.g., `AsciiLogo.module.css`)
+- `src/styles/global.css` for global styles (variables, reset, body)
+- Use kebab-case for class names in Astro components
 - Dark theme only - CSS variables defined in `:root`
 
 **Build-time GitHub Integration:**
@@ -54,10 +57,10 @@ Use `/design-review` command for comprehensive UI/UX review of front-end changes
 
 **Design resources:**
 - `.claude/design-principles.md` - Design tokens, patterns, and checklist
-- `src/styles/app.css` - CSS variables and global styles
+- `src/styles/global.css` - CSS variables and global styles
 
 **Review process uses Playwright MCP to:**
-1. Navigate to affected pages on localhost:3000
+1. Navigate to affected pages on localhost:4321
 2. Test at multiple viewports (1440px, 768px, 375px)
 3. Verify hover states and interactions
 4. Check for console errors
