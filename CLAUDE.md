@@ -11,7 +11,7 @@ Tyndfed is a portfolio website built with Astro, React 19 (for interactive islan
 ```bash
 bun install          # Install dependencies
 bun dev              # Start dev server (port 4321)
-bun run build        # Build for production (fetches GitHub dates, then Astro build)
+bun run build        # Build for production
 bun run preview      # Preview production build locally
 ```
 
@@ -38,11 +38,6 @@ bun run preview      # Preview production build locally
 - `src/styles/global.css` for global styles (variables, reset, body)
 - Use kebab-case for class names in Astro components
 - Dark theme only - CSS variables defined in `:root`
-
-**Build-time GitHub Integration:**
-- `scripts/fetch-github-dates.mjs` runs before build to fetch last commit dates
-- Outputs to `public/github-dates.json`
-- Uses optional `GITHUB_TOKEN` from `.env.local` for higher rate limits
 
 **Path Aliases:** `~/` maps to `src/`
 
