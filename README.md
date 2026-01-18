@@ -1,6 +1,6 @@
 # Tyndfed
 
-Portfolio website built with TanStack Start.
+Portfolio website built with Astro.
 
 ## Development
 
@@ -17,20 +17,10 @@ bun run build
 
 ## Deploy
 
-### Vercel
-
-Just push to GitHub and import - Vercel auto-detects TanStack Start.
-
-### Self-host
-
-```bash
-bun run build
-bun run start
-```
+Push to GitHub - Vercel auto-deploys.
 
 ## Stack
 
-- TanStack Start
-- React 19
+- Astro 5
+- React 19 (islands)
 - TypeScript
-- Vite 7
