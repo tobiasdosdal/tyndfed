@@ -10,7 +10,15 @@ const { project } = Astro.props;
 
 <article class="project">
   <header class="project-header">
-    <img src={project.icon} alt={project.name} class="project-icon" loading="lazy" />
+    <img
+      src={project.icon}
+      alt={`${project.name} logo`}
+      class="project-icon"
+      loading="lazy"
+      decoding="async"
+      width="64"
+      height="64"
+    />
     <h3 class="project-title">{project.name}</h3>
   </header>
   <p class="project-description">{project.description}</p>
@@ -20,6 +28,7 @@ const { project } = Astro.props;
         href={link.url}
         target="_blank"
         rel="noopener noreferrer"
+        aria-label={`${project.name} - ${link.label} (opens in a new tab)`}
         class="project-link"
       >
         → {link.label}

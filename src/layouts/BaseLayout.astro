@@ -7,21 +7,31 @@ interface Props {
   description?: string;
   canonical?: string;
   noindex?: boolean;
+  ogImage?: string;
 }
 
 const {
   title,
   description = 'Tyndfed - Creative development studio specializing in mobile apps, websites, and digital design.',
   canonical,
-  noindex = false
+  noindex = false,
+  ogImage = '/images/tyndfed.svg'
 } = Astro.props;
+
+const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://tyndfed.dk';
+const siteBase = `${siteOrigin}/`;
+const pageUrl = canonical
+  ? new URL(canonical, siteBase).toString()
+  : new URL(Astro.url.pathname, siteBase).toString();
+const socialImageUrl = new URL(ogImage, siteBase).toString();
+const robotsContent = noindex ? 'noindex, follow' : 'index, follow';
 
 const schema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Tyndfed",
-  "url": "https://tyndfed.dk",
-  "logo": "https://tyndfed.dk/images/tyndfed.svg",
+  "url": siteOrigin,
+  "logo": `${siteOrigin}/images/tyndfed.svg`,
   "description": "Software development & creative services",
   "address": { "@type": "PostalAddress", "addressCountry": "DK" },
   "sameAs": [
@@ -41,17 +51,21 @@ const schema = {
     <meta name="color-scheme" content="dark" />
     <meta name="description" content={description} />
     <meta name="author" content="Tobias Dosdal-Feddersen" />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="robots" content={robotsContent} />
 
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://tyndfed.dk/" />
-    <meta property="og:title" content="Tyndfed - Creative Development Studio" />
-    <meta property="og:description" content="Danish development studio creating innovative mobile apps and websites." />
-    <meta property="og:image" content="https://tyndfed.dk/images/tyndfed.svg" />
+    <meta property="og:site_name" content="Tyndfed" />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageUrl} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
 
     <title>{title}</title>
-    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="canonical" href={pageUrl} />
     <link rel="icon" type="image/svg+xml" href="/images/tyndfed.svg" />
     <link rel="apple-touch-icon" href="/images/tyndfed.svg" />
 
@@ -89,7 +103,7 @@ const schema = {
       }
     </style>
 
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body>
     <slot />

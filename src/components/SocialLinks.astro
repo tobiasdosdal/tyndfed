@@ -2,15 +2,15 @@
 import { socialLinks } from '~/data/social';
 ---
 
-<div class="social-links">
+<nav class="social-links" aria-label="Social profiles">
   {socialLinks.map((link) => (
-    <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
-      <svg viewBox="0 0 24 24" fill="currentColor">
+    <a href={link.url} target="_blank" rel="noopener noreferrer" aria-label={`${link.name} (opens in a new tab)`}>
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
         <path d={link.icon} />
       </svg>
     </a>
   ))}
-</div>
+</nav>
 
 <style>
   .social-links {

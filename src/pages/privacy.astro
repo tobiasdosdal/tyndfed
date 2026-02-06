@@ -12,18 +12,34 @@ import { legalContent } from '~/data/legal';
 >
   <WindowChrome>
     <div class="content-area">
-      <nav class="lang-switch">
-        <button class="lang-btn active" data-lang="da">Dansk</button>
-        <button class="lang-btn" data-lang="en">English</button>
+      <nav class="lang-switch" aria-label="Select language">
+        <button
+          type="button"
+          class="lang-btn active"
+          data-lang="da"
+          aria-controls="content-da"
+          aria-pressed="true"
+        >
+          Dansk
+        </button>
+        <button
+          type="button"
+          class="lang-btn"
+          data-lang="en"
+          aria-controls="content-en"
+          aria-pressed="false"
+        >
+          English
+        </button>
       </nav>
 
-      <div class="lang-content" data-lang="da">
+      <div id="content-da" class="lang-content" data-lang="da" lang="da">
         <LegalSection document={legalContent.da.privacy} />
         <hr class="divider" />
         <LegalSection document={legalContent.da.terms} />
       </div>
 
-      <div class="lang-content" data-lang="en" style="display: none;">
+      <div id="content-en" class="lang-content" data-lang="en" lang="en" hidden>
         <LegalSection document={legalContent.en.privacy} />
         <hr class="divider" />
         <LegalSection document={legalContent.en.terms} />
@@ -37,31 +53,61 @@ import { legalContent } from '~/data/legal';
 </BaseLayout>
 
 <script>
-  function initLanguageToggle() {
-    const buttons = document.querySelectorAll('.lang-btn');
-    const contents = document.querySelectorAll('.lang-content');
+  const storageKey = 'tyndfed-lang';
+  const supportedLangs = ['da', 'en'] as const;
+  type Language = (typeof supportedLangs)[number];
+  const supportedLangSet = new Set<Language>(supportedLangs);
 
-    const savedLang = localStorage.getItem('tyndfed-lang') || 'da';
+  function initLanguageToggle() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.lang-btn');
+    const contents = document.querySelectorAll<HTMLElement>('.lang-content');
+    if (buttons.length === 0 || contents.length === 0) return;
+
+    const savedLang = getSavedLanguage();
     setLanguage(savedLang);
 
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         const lang = btn.getAttribute('data-lang');
-        if (lang) {
+        if (isSupportedLanguage(lang)) {
           setLanguage(lang);
-          localStorage.setItem('tyndfed-lang', lang);
+          persistLanguage(lang);
         }
       });
     });
 
-    function setLanguage(lang: string) {
+    function setLanguage(lang: Language) {
       buttons.forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+        const isActive = btn.getAttribute('data-lang') === lang;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', String(isActive));
       });
       contents.forEach(content => {
         const contentLang = content.getAttribute('data-lang');
-        (content as HTMLElement).style.display = contentLang === lang ? 'block' : 'none';
+        content.hidden = contentLang !== lang;
       });
+    }
+
+    function persistLanguage(lang: Language) {
+      try {
+        localStorage.setItem(storageKey, lang);
+      } catch {
+        // Ignore storage errors in strict privacy modes.
+      }
+    }
+
+    function getSavedLanguage(): Language {
+      try {
+        const saved = localStorage.getItem(storageKey);
+        if (isSupportedLanguage(saved)) return saved;
+      } catch {
+        // Ignore storage errors in strict privacy modes.
+      }
+      return navigator.language?.toLowerCase().startsWith('da') ? 'da' : 'en';
+    }
+
+    function isSupportedLanguage(lang: string | null): lang is Language {
+      return typeof lang === 'string' && supportedLangSet.has(lang as Language);
     }
   }
 
