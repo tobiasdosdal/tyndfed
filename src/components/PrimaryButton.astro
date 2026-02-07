@@ -21,42 +21,16 @@ const { href, class: className } = Astro.props;
     font-family: var(--font-mono);
     font-size: var(--font-size-sm);
     font-weight: 500;
-    padding: 12px 20px;
-    background: var(--bg-surface);
-    border: 1px solid var(--chrome-border);
-    border-radius: 4px;
+    padding: 12px 18px;
+    background: var(--interactive-bg);
+    border: 1px solid var(--interactive-border);
+    border-radius: 6px;
     position: relative;
     transition:
+      transform var(--duration-fast) var(--ease-smooth),
+      box-shadow var(--duration-normal) var(--ease-smooth),
       border-color var(--duration-fast) ease,
       background var(--duration-fast) ease;
-  }
-
-  .terminal-btn::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 6px;
-    background: linear-gradient(
-      135deg,
-      #ff6b6b,
-      #feca57,
-      #48dbfb,
-      #ff9ff3,
-      #54a0ff,
-      #5f27cd,
-      #ff6b6b
-    );
-    background-size: 200% 200%;
-    opacity: 0;
-    z-index: -1;
-    filter: blur(8px);
-    transition: opacity var(--duration-normal) ease;
-  }
-
-  @keyframes rainbow-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
   }
 
   .prompt {
@@ -70,10 +44,10 @@ const { href, class: className } = Astro.props;
   }
 
   .cursor {
-    width: 8px;
-    height: 16px;
+    width: 7px;
+    height: 14px;
     background: var(--accent);
-    opacity: 0;
+    opacity: 0.35;
     animation: blink 1s step-end infinite;
     transition: opacity var(--duration-fast) ease;
   }
@@ -84,14 +58,11 @@ const { href, class: className } = Astro.props;
   }
 
   .terminal-btn:hover {
-    border-color: var(--chrome-border-strong);
-    background: var(--bg-elevated);
+    border-color: var(--interactive-border-hover);
+    background: var(--interactive-bg-hover);
+    box-shadow: var(--interactive-shadow);
+    transform: translateY(-1px);
     text-decoration: none;
-  }
-
-  .terminal-btn:hover::before {
-    opacity: 0.5;
-    animation: rainbow-shift 3s ease infinite;
   }
 
   .terminal-btn:hover .command {
@@ -99,13 +70,24 @@ const { href, class: className } = Astro.props;
   }
 
   .terminal-btn:hover .cursor {
-    opacity: 1;
+    opacity: 0.9;
+  }
+
+  .terminal-btn:active {
+    border-color: var(--interactive-border-active);
+    transform: translateY(0);
+  }
+
+  .terminal-btn:focus-visible {
+    border-color: var(--interactive-border-active);
+    box-shadow: var(--interactive-shadow-strong);
   }
 
   @media (max-width: 480px) {
     .terminal-btn {
       width: 100%;
       justify-content: center;
+      padding: 11px 16px;
     }
   }
 </style>

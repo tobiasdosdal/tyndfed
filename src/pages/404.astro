@@ -138,9 +138,14 @@ import PrimaryButton from '~/components/PrimaryButton.astro';
   }
 
   @media (max-width: 600px) {
-    .error-content { padding: 48px 20px; }
+    .error-content { padding: 44px 16px; }
     .error-code { font-size: clamp(60px, 20vw, 100px); margin-bottom: 20px; }
     .error-message { font-size: var(--font-size-lg); }
+    nav {
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -11,6 +11,7 @@
 .wrapper {
   position: relative;
   display: inline-block;
+  max-width: 100%;
 }
 
 /* Scanlines overlay */
@@ -34,7 +35,7 @@
   margin: 0;
   font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
   font-size: clamp(5px, 1.35vw, 11px);
-  line-height: 0.8;
+  line-height: 0.82;
   text-align: left;
   white-space: pre;
   color: var(--text-secondary);
@@ -145,11 +146,14 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 32px 12px 24px;
+    padding: 26px 8px 18px;
+    justify-content: center;
   }
 
   .art {
-    font-size: clamp(3px, 1.8vw, 8px);
+    font-size: clamp(3.8px, 2vw, 8px);
+    line-height: 0.86;
+    letter-spacing: -0.03em;
   }
 
   .art.glitching {

@@ -18,63 +18,59 @@ const { href = '/', label = 'Back to main' } = Astro.props;
   }
 
   .back-link {
-    color: var(--text-muted);
+    color: var(--text-secondary);
     font-family: var(--font-display);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     font-weight: 500;
     letter-spacing: 0.01em;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    min-height: 36px;
+    min-height: 38px;
     padding: 8px 14px;
     margin: -8px -14px;
     border-radius: 8px;
-    border: 1px solid transparent;
-    position: relative;
+    border: 1px solid var(--interactive-border);
+    background: var(--interactive-bg);
     transition:
       color var(--duration-fast) ease,
       background var(--duration-fast) ease,
-      border-color var(--duration-fast) ease;
-  }
-
-  .back-link::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 10px;
-    background: linear-gradient(
-      135deg,
-      #ff6b6b,
-      #feca57,
-      #48dbfb,
-      #ff9ff3,
-      #54a0ff,
-      #5f27cd,
-      #ff6b6b
-    );
-    background-size: 200% 200%;
-    opacity: 0;
-    z-index: -1;
-    filter: blur(8px);
-    transition: opacity var(--duration-normal) ease;
-  }
-
-  @keyframes rainbow-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+      border-color var(--duration-fast) ease,
+      transform var(--duration-fast) var(--ease-smooth),
+      box-shadow var(--duration-normal) var(--ease-smooth);
   }
 
   .back-link:hover {
     color: var(--text-primary);
-    background: var(--bg-elevated);
-    border-color: var(--chrome-border);
+    background: var(--interactive-bg-hover);
+    border-color: var(--interactive-border-hover);
+    box-shadow: var(--interactive-shadow);
+    transform: translateY(-1px);
     text-decoration: none;
   }
 
-  .back-link:hover::before {
-    opacity: 0.4;
-    animation: rainbow-shift 3s ease infinite;
+  .back-link:active {
+    transform: translateY(0);
+    border-color: var(--interactive-border-active);
+  }
+
+  .back-link:focus-visible {
+    border-color: var(--interactive-border-active);
+    box-shadow: var(--interactive-shadow-strong);
+  }
+
+  @media (max-width: 480px) {
+    .back-nav {
+      padding: 12px 14px;
+    }
+
+    .back-link {
+      width: 100%;
+      justify-content: center;
+      margin: 0;
+      min-height: 42px;
+      padding: 10px 12px;
+      font-size: var(--font-size-xs);
+    }
   }
 </style>

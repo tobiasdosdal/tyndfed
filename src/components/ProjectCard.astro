@@ -3,9 +3,10 @@ import type { Project } from '~/data/projects';
 
 interface Props {
   project: Project;
+  priority?: boolean;
 }
 
-const { project } = Astro.props;
+const { project, priority = false } = Astro.props;
 ---
 
 <article class="project">
@@ -14,7 +15,8 @@ const { project } = Astro.props;
       src={project.icon}
       alt={`${project.name} logo`}
       class="project-icon"
-      loading="lazy"
+      loading={priority ? 'eager' : 'lazy'}
+      fetchpriority={priority ? 'high' : 'auto'}
       decoding="async"
       width="64"
       height="64"
@@ -39,21 +41,25 @@ const { project } = Astro.props;
 
 <style>
   .project {
-    padding: 20px;
+    padding: 22px;
     background: var(--bg-elevated);
-    border: 1px solid var(--chrome-border);
-    border-radius: 4px;
+    border: 1px solid var(--interactive-border);
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
     transition:
+      transform var(--duration-fast) var(--ease-smooth),
+      box-shadow var(--duration-normal) var(--ease-smooth),
       border-color var(--duration-fast) ease,
       background var(--duration-fast) ease;
   }
 
   .project:hover {
-    border-color: var(--chrome-border-strong);
+    border-color: var(--interactive-border-hover);
     background: var(--bg-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--interactive-shadow);
   }
 
   .project-header {
@@ -74,87 +80,61 @@ const { project } = Astro.props;
     color: var(--text-primary);
     margin: 0;
     font-family: var(--font-display);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: 500;
   }
 
   .project-description {
-    color: var(--text-muted);
+    color: var(--text-secondary);
     margin: 0;
     font-size: var(--font-size-sm);
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
   .project-links {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     flex-wrap: wrap;
     margin-top: auto;
   }
 
-  .project-links {
-    position: relative;
-    z-index: 0;
-  }
-
   .project-link {
     color: var(--text-secondary);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     font-weight: 500;
-    padding: 6px 10px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--chrome-border);
-    border-radius: 3px;
-    position: relative;
+    padding: 7px 12px;
+    background: var(--interactive-bg);
+    border: 1px solid var(--interactive-border);
+    border-radius: 5px;
     transition:
       color var(--duration-fast) ease,
       border-color var(--duration-fast) ease,
-      background var(--duration-fast) ease;
-  }
-
-  .project-link::before {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 6px;
-    background: linear-gradient(
-      135deg,
-      #ff6b6b,
-      #feca57,
-      #48dbfb,
-      #ff9ff3,
-      #54a0ff,
-      #5f27cd,
-      #ff6b6b
-    );
-    background-size: 200% 200%;
-    opacity: 0;
-    z-index: -1;
-    filter: blur(8px);
-    transition: opacity var(--duration-normal) ease;
-    pointer-events: none;
-  }
-
-  @keyframes rainbow-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+      background var(--duration-fast) ease,
+      transform var(--duration-fast) var(--ease-smooth),
+      box-shadow var(--duration-normal) var(--ease-smooth);
   }
 
   .project-link:hover {
     color: var(--text-primary);
-    border-color: var(--chrome-border-strong);
-    background: var(--bg-elevated);
+    border-color: var(--interactive-border-hover);
+    background: var(--interactive-bg-hover);
+    box-shadow: var(--interactive-shadow);
+    transform: translateY(-1px);
   }
 
-  .project-link:hover::before {
-    opacity: 0.5;
-    animation: rainbow-shift 3s ease infinite;
+  .project-link:active {
+    transform: translateY(0);
+    border-color: var(--interactive-border-active);
+  }
+
+  .project-link:focus-visible {
+    border-color: var(--interactive-border-active);
+    box-shadow: var(--interactive-shadow-strong);
   }
 
   @media (max-width: 480px) {
     .project {
-      padding: 14px;
+      padding: 16px;
     }
 
     .project-icon {
@@ -162,10 +142,17 @@ const { project } = Astro.props;
       height: 52px;
     }
 
+    .project-links {
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .project-link {
-      flex: 1;
+      width: 100%;
       text-align: center;
       justify-content: center;
+      font-size: var(--font-size-xs);
+      min-height: 40px;
     }
   }
 </style>

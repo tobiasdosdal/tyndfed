@@ -23,7 +23,7 @@ const { document } = Astro.props;
   .legal-section {
     color: var(--text-secondary);
     line-height: 1.8;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     animation: fadeIn 0.4s var(--ease-out-expo);
   }
 
@@ -64,7 +64,7 @@ const { document } = Astro.props;
   .legal-section h3 {
     color: var(--text-primary);
     font-family: var(--font-display);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: 500;
     margin-top: 24px;
     margin-bottom: 10px;
@@ -76,7 +76,7 @@ const { document } = Astro.props;
 
   .updated {
     color: var(--text-muted);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     margin-bottom: 20px;
     display: flex;
     align-items: center;
@@ -94,15 +94,15 @@ const { document } = Astro.props;
 
   @media (max-width: 480px) {
     .legal-section {
-      font-size: var(--font-size-xs);
+      font-size: var(--font-size-sm);
     }
 
     .legal-section h2 {
-      font-size: var(--font-size-lg);
+      font-size: var(--font-size-xl);
     }
 
     .legal-section h3 {
-      font-size: var(--font-size-sm);
+      font-size: var(--font-size-base);
     }
   }
 </style>

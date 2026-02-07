@@ -12,7 +12,7 @@ import { AsciiLogo } from '~/components/AsciiLogo';
   canonical="https://tyndfed.dk/"
 >
   <WindowChrome>
-    <AsciiLogo client:load />
+    <AsciiLogo client:idle />
     <p class="tagline">Software development & creative services</p>
     <footer class="footer">
       <nav>
@@ -29,9 +29,9 @@ import { AsciiLogo } from '~/components/AsciiLogo';
     text-align: center;
     color: var(--text-secondary);
     font-family: var(--font-display);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     margin: 0;
     padding: 0 24px;
@@ -40,6 +40,7 @@ import { AsciiLogo } from '~/components/AsciiLogo';
     align-items: center;
     justify-content: center;
     gap: 16px;
+    line-height: 1.5;
   }
 
   .tagline::before,
@@ -57,11 +58,11 @@ import { AsciiLogo } from '~/components/AsciiLogo';
 
   .footer {
     text-align: center;
-    padding: 40px 24px 48px;
+    padding: 36px 24px 44px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 32px;
+    gap: 28px;
   }
 
   .footer nav {
@@ -77,10 +78,11 @@ import { AsciiLogo } from '~/components/AsciiLogo';
 
   @media (max-width: 480px) {
     .tagline {
-      font-size: var(--font-size-xs);
+      font-size: var(--font-size-sm);
       padding: 0 16px;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       gap: 12px;
+      text-align: center;
     }
 
     .tagline::before,
@@ -89,8 +91,12 @@ import { AsciiLogo } from '~/components/AsciiLogo';
     }
 
     .footer {
-      padding: 28px 16px 32px;
-      gap: 24px;
+      padding: 24px 16px 30px;
+      gap: 20px;
+    }
+
+    .footer nav {
+      width: 100%;
     }
   }
 </style>
